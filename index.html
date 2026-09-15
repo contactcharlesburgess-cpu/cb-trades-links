@@ -39,16 +39,16 @@
     font-family: 'IBM Plex Sans', system-ui, sans-serif;
     display: flex;
     justify-content: center;
-    padding: 64px 20px 40px;
+    padding: 72px 24px 60px;
     min-height: 100vh;
   }
 
   .page {
     width: 100%;
-    max-width: 480px;
+    max-width: 620px;
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 42px;
   }
 
   header {
@@ -56,12 +56,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 14px;
+    gap: 16px;
   }
 
   .avatar-ring {
-    width: 92px;
-    height: 92px;
+    width: 116px;
+    height: 116px;
     border-radius: 50%;
     border: 1px solid var(--border);
     display: flex;
@@ -74,10 +74,10 @@
   .avatar-ring::before {
     content: "";
     position: absolute;
-    inset: -5px;
+    inset: -6px;
     border-radius: 50%;
-    border: 1px dashed var(--accent);
-    opacity: 0.45;
+    border: 1.5px dashed var(--accent);
+    opacity: 0.5;
     z-index: 1;
     pointer-events: none;
   }
@@ -92,22 +92,22 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-dim);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 10px;
+    gap: 9px;
+    padding: 6px 14px;
     border-radius: 999px;
     background: var(--surface);
     border: 1px solid var(--border);
   }
 
   .status-dot {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--tick-up);
     flex: none;
@@ -141,7 +141,7 @@
     font-family: 'Fraunces', serif;
     font-optical-sizing: auto;
     font-weight: 600;
-    font-size: clamp(34px, 8vw, 44px);
+    font-size: clamp(40px, 9vw, 54px);
     line-height: 1.05;
     margin: 0;
     text-wrap: balance;
@@ -150,8 +150,9 @@
 
   .tagline {
     color: var(--text-dim);
-    font-size: 15px;
-    max-width: 34ch;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 44ch;
     text-wrap: balance;
   }
 
@@ -164,7 +165,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
     background: var(--surface);
     box-shadow: var(--shadow);
@@ -173,8 +174,8 @@
   .row {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 18px 20px;
+    gap: 18px;
+    padding: 20px 24px;
     text-decoration: none;
     color: var(--text);
     border-bottom: 1px solid var(--border);
@@ -194,10 +195,10 @@
   }
 
   .row-icon {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     flex: none;
-    border-radius: 9px;
+    border-radius: 11px;
     background: var(--bg);
     border: 1px solid var(--border);
     display: flex;
@@ -205,19 +206,19 @@
     justify-content: center;
   }
 
-  .row-icon svg { width: 18px; height: 18px; color: var(--text); }
+  .row-icon svg { width: 21px; height: 21px; color: var(--text); }
 
   .row-body {
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
   }
 
   .row-label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11.5px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-dim);
@@ -226,7 +227,7 @@
   .row-handle {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -238,10 +239,10 @@
     transition: transform 0.15s ease, color 0.15s ease;
   }
 
-  .row-arrow svg { width: 16px; height: 16px; display: block; }
+  .row-arrow svg { width: 18px; height: 18px; display: block; }
 
   .row:hover .row-arrow, .row:focus-visible .row-arrow {
-    transform: translateX(3px);
+    transform: translateX(4px);
     color: var(--accent);
   }
 
@@ -249,17 +250,17 @@
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     overflow: hidden;
-    padding: 10px 0;
+    padding: 14px 0;
   }
 
   .ticker-track {
     display: flex;
-    gap: 40px;
+    gap: 48px;
     white-space: nowrap;
     width: max-content;
     animation: scroll-left 22s linear infinite;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 12.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-dim);
@@ -279,17 +280,17 @@
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 20px;
+    border-radius: 16px;
+    padding: 28px 26px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
     box-shadow: var(--shadow);
   }
 
   .card-eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11.5px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent);
@@ -298,7 +299,7 @@
   .card-title {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 23px;
     margin: 0;
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -307,8 +308,8 @@
 
   .card-desc {
     margin: 0;
-    font-size: 13.5px;
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.55;
     color: var(--text-dim);
   }
 
@@ -321,10 +322,10 @@
 
   .pill {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.05em;
-    padding: 4px 10px;
-    border-radius: 6px;
+    padding: 6px 13px;
+    border-radius: 7px;
     background: var(--bg);
     border: 1px solid var(--border);
     color: var(--text);
@@ -334,7 +335,7 @@
     position: relative;
     width: 100%;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    border-radius: 9px;
+    border-radius: 12px;
     overflow: hidden;
     background: var(--bg);
     border: 1px solid var(--border);
@@ -351,21 +352,21 @@
 
   .card-link {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
+    font-size: 12.5px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--accent);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     align-self: flex-start;
     transition: transform 0.15s ease, color 0.15s ease;
   }
 
-  .card-link svg { width: 14px; height: 14px; }
+  .card-link svg { width: 16px; height: 16px; }
   .card-link:hover, .card-link:focus-visible {
-    transform: translateX(3px);
+    transform: translateX(4px);
     color: var(--text);
   }
 
@@ -373,13 +374,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 8px 16px;
+    gap: 10px;
+    padding: 10px 20px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 999px;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-dim);
@@ -401,11 +402,11 @@
   .discord-featured {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px 20px;
+    border-radius: 16px;
+    padding: 28px 26px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
@@ -417,7 +418,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 3.5px;
     background: linear-gradient(90deg, var(--accent), var(--tick-up));
   }
 
@@ -425,24 +426,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 14px 20px;
+    gap: 11px;
+    padding: 16px 24px;
     background: var(--text);
     color: var(--bg);
-    border-radius: 9px;
+    border-radius: 10px;
     text-decoration: none;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: all 0.15s ease;
-    box-shadow: 0 2px 4px rgba(34,38,26,0.1);
+    box-shadow: 0 3px 6px rgba(34,38,26,0.1);
   }
 
   .btn-primary svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     fill: currentColor;
   }
 
@@ -453,17 +454,16 @@
     box-shadow: 0 4px 10px rgba(168,121,26,0.25);
   }
 
-
   .faq-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
     margin-top: 4px;
   }
 
   .faq-item {
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 10px;
     background: var(--bg);
     overflow: hidden;
     transition: background 0.15s ease;
@@ -474,9 +474,9 @@
   }
 
   .faq-summary {
-    padding: 14px 16px;
+    padding: 16px 20px;
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--text);
     cursor: pointer;
@@ -494,7 +494,7 @@
   .faq-summary::after {
     content: "+";
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 16px;
+    font-size: 18px;
     color: var(--accent);
     font-weight: 400;
     transition: transform 0.2s ease;
@@ -505,28 +505,28 @@
   }
 
   .faq-answer {
-    padding: 0 16px 14px;
-    font-size: 13.5px;
-    line-height: 1.5;
+    padding: 0 20px 18px;
+    font-size: 14.5px;
+    line-height: 1.55;
     color: var(--text-dim);
   }
 
   /* ---------- VantageX Desk Agent ---------- */
   .agent-trigger {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 24px;
+    right: 24px;
     z-index: 999;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
+    gap: 9px;
+    padding: 12px 18px;
     background: #151B21;
     color: #E7E4DA;
     border: 1px solid var(--accent);
     border-radius: 999px;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
+    font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
@@ -541,14 +541,14 @@
   }
 
   .agent-trigger svg {
-    width: 15px;
-    height: 15px;
+    width: 17px;
+    height: 17px;
     fill: currentColor;
   }
 
   .agent-pulse {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--tick-up);
     box-shadow: 0 0 0 0 rgba(46,125,107,0.7);
@@ -563,17 +563,17 @@
 
   .agent-drawer {
     position: fixed;
-    bottom: 74px;
-    right: 20px;
-    width: 360px;
-    max-width: calc(100vw - 32px);
-    height: 500px;
-    max-height: calc(100vh - 96px);
+    bottom: 84px;
+    right: 24px;
+    width: 380px;
+    max-width: calc(100vw - 36px);
+    height: 520px;
+    max-height: calc(100vh - 104px);
     background: #151B21;
     color: #E7E4DA;
     border: 1px solid #28333B;
     border-top: 2px solid var(--accent);
-    border-radius: 14px;
+    border-radius: 16px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
