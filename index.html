@@ -511,12 +511,295 @@
     color: var(--text-dim);
   }
 
-  footer {
-    text-align: center;
+  /* ---------- VantageX Desk Agent ---------- */
+  .agent-trigger {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #151B21;
+    color: #E7E4DA;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .agent-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(168,121,26,0.35);
+    border-color: #d4a034;
+  }
+
+  .agent-trigger svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+
+  .agent-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tick-up);
+    box-shadow: 0 0 0 0 rgba(46,125,107,0.7);
+    animation: agentPulse 2s infinite;
+  }
+
+  @keyframes agentPulse {
+    0% { box-shadow: 0 0 0 0 rgba(46,125,107,0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(46,125,107,0); }
+    100% { box-shadow: 0 0 0 0 rgba(46,125,107,0); }
+  }
+
+  .agent-drawer {
+    position: fixed;
+    bottom: 74px;
+    right: 20px;
+    width: 360px;
+    max-width: calc(100vw - 32px);
+    height: 500px;
+    max-height: calc(100vh - 96px);
+    background: #151B21;
+    color: #E7E4DA;
+    border: 1px solid #28333B;
+    border-top: 2px solid var(--accent);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(16px) scale(0.96);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .agent-drawer.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .agent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #0E1317;
+    border-bottom: 1px solid #242E37;
+  }
+
+  .agent-header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .agent-header-title strong {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #E7E4DA;
+    letter-spacing: 0.02em;
+  }
+
+  .agent-header-title span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #8792A0;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .agent-close {
+    background: none;
+    border: none;
+    color: #8792A0;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.15s ease;
+  }
+
+  .agent-close:hover {
+    color: #fff;
+  }
+
+  .agent-chips {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+    background: #11171D;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid #202A33;
+    flex-shrink: 0;
+  }
+  .agent-chips::-webkit-scrollbar { display: none; }
+
+  .chip-btn {
+    background: #1C242C;
+    border: 1px solid #2C3843;
+    color: #C0C8D0;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .chip-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .agent-messages {
+    flex: 1;
+    padding: 14px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .msg {
+    max-width: 88%;
+    padding: 9px 13px;
+    border-radius: 10px;
+    word-break: break-word;
+  }
+
+  .msg.agent {
+    align-self: flex-start;
+    background: #1E2730;
+    border: 1px solid #2A3642;
+    color: #E7E4DA;
+    border-bottom-left-radius: 2px;
+  }
+
+  .msg.user {
+    align-self: flex-end;
+    background: var(--accent);
+    color: #fff;
+    border-bottom-right-radius: 2px;
+  }
+
+  .msg-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    background: var(--tick-up);
+    color: #fff !important;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--text-dim);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: opacity 0.15s ease;
+  }
+  .msg-cta-btn:hover { opacity: 0.9; }
+
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 10px 14px;
+    background: #1E2730;
+    border: 1px solid #2A3642;
+    border-radius: 10px;
+    border-bottom-left-radius: 2px;
+    align-self: flex-start;
+    width: fit-content;
+  }
+
+  .typing-dot {
+    width: 5px;
+    height: 5px;
+    background: #8792A0;
+    border-radius: 50%;
+    animation: typingBounce 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  .agent-input-bar {
+    display: flex;
+    padding: 10px 12px;
+    background: #0E1317;
+    border-top: 1px solid #242E37;
+    gap: 8px;
+  }
+
+  .agent-input-bar input {
+    flex: 1;
+    background: #171E25;
+    border: 1px solid #2A3642;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #E7E4DA;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .agent-input-bar input:focus {
+    border-color: var(--accent);
+  }
+
+  .agent-send-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .agent-send-btn:hover {
+    filter: brightness(1.1);
+  }
+
+  .agent-send-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 </style>
 </head>
@@ -672,6 +955,43 @@
   <footer>CB TRADES &middot; LINKS</footer>
 </div>
 
+<!-- VantageX Desk Agent Component -->
+<button class="agent-trigger" id="agent-trigger" aria-label="Open VantageX Desk Agent" type="button">
+  <span class="agent-pulse" aria-hidden="true"></span>
+  <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4V4a2 2 0 0 1 2-2zm-4 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-6 6h4v-1.5H10V16z"/></svg>
+  <span>Desk Agent</span>
+</button>
+
+<div class="agent-drawer" id="agent-drawer" role="dialog" aria-labelledby="agent-title" aria-modal="false">
+  <div class="agent-header">
+    <div class="agent-header-title">
+      <strong id="agent-title">VantageX Desk Agent</strong>
+      <span><span class="agent-pulse"></span> Online &middot; M&ndash;F Live Desk</span>
+    </div>
+    <button class="agent-close" id="agent-close" aria-label="Close Desk Agent" type="button">&times;</button>
+  </div>
+
+  <div class="agent-chips" id="agent-chips">
+    <button class="chip-btn" data-q="What is your trading routine?" type="button">Trading Routine</button>
+    <button class="chip-btn" data-q="Why do key levels matter?" type="button">Why Key Levels?</button>
+    <button class="chip-btn" data-q="What instruments do you trade?" type="button">Instruments</button>
+    <button class="chip-btn" data-q="How do I join VantageX?" type="button">Join VantageX</button>
+  </div>
+
+  <div class="agent-messages" id="agent-messages">
+    <div class="msg agent">
+      Welcome to the desk. I'm the automated assistant for CB Trades and VantageX. Ask me about our M&ndash;F session routine, key level execution, or how to get onto the private trading floor.
+    </div>
+  </div>
+
+  <form class="agent-input-bar" id="agent-form">
+    <input type="text" id="agent-input" placeholder="Ask about setups, levels, or VantageX..." autocomplete="off" />
+    <button type="submit" class="agent-send-btn" aria-label="Send message">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</div>
+
 <script>
   function updateMarketStatus() {
     try {
@@ -774,6 +1094,113 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // VantageX Desk Agent Interactive Logic
+  (function initDeskAgent() {
+    const trigger = document.getElementById('agent-trigger');
+    const drawer = document.getElementById('agent-drawer');
+    const closeBtn = document.getElementById('agent-close');
+    const form = document.getElementById('agent-form');
+    const input = document.getElementById('agent-input');
+    const messages = document.getElementById('agent-messages');
+    const chips = document.getElementById('agent-chips');
+
+    if (!trigger || !drawer || !form || !input || !messages) return;
+
+    let isOpen = false;
+
+    function toggleDrawer(open) {
+      isOpen = (open !== undefined) ? open : !isOpen;
+      if (isOpen) {
+        drawer.classList.add('open');
+        input.focus();
+      } else {
+        drawer.classList.remove('open');
+      }
+    }
+
+    trigger.addEventListener('click', () => toggleDrawer());
+    if (closeBtn) closeBtn.addEventListener('click', () => toggleDrawer(false));
+
+    function appendMessage(text, sender, ctaHtml) {
+      const msg = document.createElement('div');
+      msg.className = 'msg ' + sender;
+      msg.innerHTML = text;
+      if (ctaHtml) {
+        msg.innerHTML += ctaHtml;
+      }
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTyping() {
+      const typing = document.createElement('div');
+      typing.className = 'typing-indicator';
+      typing.id = 'agent-typing';
+      typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+      messages.appendChild(typing);
+      messages.scrollTop = messages.scrollHeight;
+      return typing;
+    }
+
+    function removeTyping() {
+      const typing = document.getElementById('agent-typing');
+      if (typing) typing.remove();
+    }
+
+    function respond(userText) {
+      const q = userText.toLowerCase().trim();
+      let reply = "";
+      let cta = "";
+
+      const joinBtn = '<br><a class="msg-cta-btn" href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer">Enter VantageX Floor &rarr;</a>';
+
+      if (q.includes("routine") || q.includes("schedule") || q.includes("when") || q.includes("time") || q.includes("hours") || q.includes("open") || q.includes("session")) {
+        reply = "Charles trades Monday through Friday targeting two high-volume windows: the <b>NY AM Open (9:30 AM EST)</b> and the <b>Asia Open (Globex)</b>. No trading midday chop or chasing random noise—we wait for the open, let price interact with our key levels, and execute with defined risk.";
+        cta = joinBtn;
+      } else if (q.includes("level") || q.includes("key") || q.includes("strategy") || q.includes("model") || q.includes("how") || q.includes("edge") || q.includes("trap") || q.includes("sauce")) {
+        reply = "Our framework is built on institutional liquidity traps—waiting for the false break, confirming structural shift, and executing with strict mathematical risk. The exact entry parameters and daily marked zones are exclusive to members inside VantageX.";
+        cta = joinBtn;
+      } else if (q.includes("instrument") || q.includes("trade") || q.includes("ticker") || q.includes("futures") || q.includes("nq") || q.includes("es") || q.includes("crypto") || q.includes("stock")) {
+        reply = "Primary focus is strictly on equity index futures: <b>NQ (Nasdaq 100)</b> and <b>ES (S&P 500)</b> during active session delivery. Defined spreads, deep liquidity, zero stock-picking guessing games.";
+      } else if (q.includes("join") || q.includes("discord") || q.includes("vantagex") || q.includes("access") || q.includes("price") || q.includes("cost") || q.includes("vip") || q.includes("free")) {
+        reply = "<b>You're either trading with VantageX or you're funding our exits.</b> Inside the floor you get our daily marked key levels before the open, session prep, setup discussions, and execution breakdowns.";
+        cta = joinBtn;
+      } else if (q.includes("funding") || q.includes("exit") || q.includes("win") || q.includes("pnl") || q.includes("cocky")) {
+        reply = "The market doesn't pay for opinions—it pays for discipline and executing off key levels. If you're tired of being on the wrong side of the open, tap into the room below.";
+        cta = joinBtn;
+      } else {
+        reply = "I hear you. If you want Charles's daily marked levels, live NY AM & Asia session prep, and real-time execution breakdowns, step onto the floor:";
+        cta = joinBtn;
+      }
+
+      showTyping();
+      setTimeout(() => {
+        removeTyping();
+        appendMessage(reply, 'agent', cta);
+      }, 450);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, 'user');
+      input.value = '';
+      respond(text);
+    });
+
+    if (chips) {
+      chips.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip-btn');
+        if (!btn) return;
+        const query = btn.dataset.q;
+        if (!query) return;
+        appendMessage(query, 'user');
+        respond(query);
+      });
+    }
+  })();
 </script>
 
 </body>
