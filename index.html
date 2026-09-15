@@ -453,120 +453,6 @@
     box-shadow: 0 4px 10px rgba(168,121,26,0.25);
   }
 
-  .check-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 4px;
-  }
-
-  .check-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-    user-select: none;
-  }
-
-  .check-item:hover {
-    background: var(--surface-hover);
-  }
-
-  .check-item input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--border);
-    border-radius: 4px;
-    background: var(--surface);
-    cursor: pointer;
-    flex: none;
-    display: grid;
-    place-content: center;
-    margin-top: 2px;
-    transition: all 0.15s ease;
-  }
-
-  .check-item input[type="checkbox"]:checked {
-    background: var(--tick-up);
-    border-color: var(--tick-up);
-  }
-
-  .check-item input[type="checkbox"]:checked::after {
-    content: "";
-    width: 5px;
-    height: 9px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    margin-bottom: 2px;
-  }
-
-  .check-label {
-    font-size: 13.5px;
-    line-height: 1.4;
-    color: var(--text);
-  }
-
-  .check-label strong {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    display: block;
-    color: var(--accent);
-    margin-bottom: 2px;
-  }
-
-  .stack-status {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 14px;
-    border-radius: 8px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-    margin-top: 6px;
-  }
-
-  .stack-status.ready {
-    background: rgba(46,125,107,0.12);
-    border-color: var(--tick-up);
-    color: var(--tick-up);
-    font-weight: 600;
-  }
-
-  .stack-status.pending {
-    color: var(--text-dim);
-  }
-
-  .btn-reset {
-    background: none;
-    border: none;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    text-decoration: underline;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .btn-reset:hover {
-    color: var(--accent);
-  }
 
   .faq-list {
     display: flex;
@@ -721,65 +607,16 @@
   <section class="card" aria-labelledby="playbook-title">
     <div class="card-eyebrow">Trading Model · Daily Execution</div>
     <h2 id="playbook-title" class="card-title">NY AM &amp; Asia Open Sessions</h2>
-    <p class="card-desc">I trade Monday through Friday, targeting two high-volume windows: the NY AM Open and the Asia Open strictly off my marked key levels. I don't predict or chase—I let price deliver into my zones, confirm institutional reaction, and execute with calculated risk. My daily marked levels, live session prep, and real-time execution breakdowns are shared every morning and evening inside VantageX. If you're tired of taking random trades and guessing where the market is going, step inside the room.</p>
+    <p class="card-desc">I trade M–F NY AM and Asia opens strictly off my marked key levels. Daily levels, session prep, and execution recaps are posted inside VantageX—join the floor below.</p>
     <div class="pill-row">
-      <span class="pill">M–F Active Execution</span>
-      <span class="pill">NY AM Open</span>
+      <span class="pill">M–F NY AM Open</span>
       <span class="pill">Asia Open</span>
-      <span class="pill">Daily Marked Levels</span>
+      <span class="pill">Key Levels</span>
     </div>
-    <a class="card-link" href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer" style="margin-top: 14px;">
+    <a class="card-link" href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer" style="margin-top: 12px;">
       <span>Get Daily Levels in VantageX</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
-  </section>
-
-  <section class="card" aria-labelledby="stack-title">
-    <div class="card-eyebrow">Interactive Tool &middot; Execution Protocol</div>
-    <h2 id="stack-title" class="card-title">Pre-Trade Execution Protocol</h2>
-    <p class="card-desc">Our 5-point discipline filter before risking capital on any setup. If any condition is missing, stand down.</p>
-    <div class="check-list">
-      <label class="check-item">
-        <input type="checkbox">
-        <span class="check-label">
-          <strong>1. Higher-Timeframe Alignment</strong>
-          Narrative and liquidity draw confirmed against higher-timeframe market structure.
-        </span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox">
-        <span class="check-label">
-          <strong>2. Key Reference Manipulation</strong>
-          Price swept a critical liquidity pool; waiting for confirmation, zero front-running.
-        </span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox">
-        <span class="check-label">
-          <strong>3. Structural Confirmation</strong>
-          Displacement validates institutional orderflow shift; retail trapped on the wrong side.
-        </span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox">
-        <span class="check-label">
-          <strong>4. VantageX Model Criteria Met</strong>
-          Proprietary entry parameters satisfied with defined invalidation; zero emotional bias.
-        </span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox">
-        <span class="check-label">
-          <strong>5. Asymmetric Risk Matrix &ge; 2R</strong>
-          Target liquidity pool offers at least 2R to defined, non-negotiable stop.
-        </span>
-      </label>
-    </div>
-    <div class="stack-status pending" id="stack-status">
-      <span class="status-msg">STAND DOWN &middot; <span id="stack-count">0/5 CONFIRMED</span></span>
-      <button type="button" class="btn-reset" id="stack-reset">Reset</button>
-    </div>
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-dim); margin-top:12px; text-align:center; letter-spacing:0.02em;">Full parameter documentation &amp; daily marked zones &rarr; <b>VantageX</b></div>
   </section>
 
   <section class="card" aria-labelledby="video-title">
@@ -937,37 +774,6 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
-
-  function initChecklist() {
-    const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-    const statusEl = document.getElementById('stack-status');
-    const resetBtn = document.getElementById('stack-reset');
-    if (!checkboxes.length || !statusEl) return;
-
-    function evaluate() {
-      let checked = 0;
-      checkboxes.forEach(cb => {
-        if (cb.checked) checked++;
-      });
-      const msgEl = statusEl.querySelector('.status-msg');
-      if (checked === 5) {
-        statusEl.className = 'stack-status ready';
-        if (msgEl) msgEl.innerHTML = 'VALIDATED &middot; EXECUTE SETUP';
-      } else {
-        statusEl.className = 'stack-status pending';
-        if (msgEl) msgEl.innerHTML = 'STAND DOWN &middot; <span id="stack-count">' + checked + '/5 CONFIRMED</span>';
-      }
-    }
-
-    checkboxes.forEach(cb => cb.addEventListener('change', evaluate));
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        checkboxes.forEach(cb => cb.checked = false);
-        evaluate();
-      });
-    }
-  }
-  initChecklist();
 </script>
 
 </body>
