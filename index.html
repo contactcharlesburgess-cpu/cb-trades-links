@@ -548,9 +548,9 @@
     flex-wrap: wrap;
     gap: 8px;
     padding: 10px 14px;
-    background: #0E1317;
-    color: #A1ACB8;
-    border: 1px solid #222C36;
+    background: var(--bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
     border-radius: 10px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -564,7 +564,7 @@
   }
 
   .cc-telemetry-left strong {
-    color: #E7E4DA;
+    color: var(--text);
     font-weight: 600;
   }
 
@@ -572,7 +572,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #8792A0;
+    color: var(--text-dim);
+  }
+
+  .cc-telemetry-right b {
+    color: var(--text);
   }
 
   .agent-grid {
@@ -609,9 +613,9 @@
   }
 
   .agent-tab-btn.active {
-    background: #151B21;
+    background: #FFFFFF;
     border-color: var(--accent);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    box-shadow: 0 4px 14px rgba(168,121,26,0.14);
   }
 
   .tab-badge {
@@ -628,8 +632,8 @@
   }
 
   .agent-tab-btn.active .tab-badge {
-    background: rgba(168,121,26,0.25);
-    color: #d4a034;
+    background: rgba(168,121,26,0.15);
+    color: var(--accent);
   }
 
   .tab-title-wrap {
@@ -654,7 +658,7 @@
   }
 
   .agent-tab-btn.active .tab-name {
-    color: #E7E4DA;
+    color: var(--text);
   }
 
   .tab-role {
@@ -666,17 +670,18 @@
   }
 
   .agent-tab-btn.active .tab-role {
-    color: #8792A0;
+    color: var(--text-dim);
   }
 
   /* Console Container */
   .cc-viewport {
-    background: #11161B;
-    border: 1px solid #242E38;
+    background: #FAFBF3;
+    border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 8px rgba(34,38,26,0.04);
   }
 
   .cc-view-header {
@@ -684,8 +689,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    background: #0A0E11;
-    border-bottom: 1px solid #1E2730;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
     gap: 8px;
     flex-wrap: wrap;
   }
@@ -700,17 +705,18 @@
     font-family: 'Fraunces', serif;
     font-size: 15px;
     font-weight: 500;
-    color: #E7E4DA;
+    color: var(--text);
   }
 
   .cc-callsign {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
-    background: #1B232C;
-    color: #A1ACB8;
+    background: var(--bg);
+    color: var(--text-dim);
     padding: 2px 7px;
     border-radius: 4px;
-    border: 1px solid #2B3744;
+    border: 1px solid var(--border);
+    font-weight: 500;
   }
 
   .cc-vh-status {
@@ -720,11 +726,12 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    font-weight: 500;
   }
 
   .cc-view-body {
     padding: 18px;
-    color: #D2D8DE;
+    color: var(--text);
     font-size: 13.5px;
     line-height: 1.5;
     min-height: 220px;
@@ -756,10 +763,11 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: #161D24;
-    border: 1px solid #25313D;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 10px 12px;
+    box-shadow: 0 1px 3px rgba(34,38,26,0.03);
   }
 
   .c-step-num {
@@ -778,14 +786,14 @@
   }
 
   .c-step-content strong {
-    color: #E7E4DA;
+    color: var(--text);
     font-size: 13px;
     display: block;
     margin-bottom: 2px;
   }
 
   .c-step-content span {
-    color: #929CA8;
+    color: var(--text-dim);
     font-size: 12px;
   }
 
@@ -793,8 +801,9 @@
   .radar-table-wrap {
     overflow-x: auto;
     margin-top: 12px;
-    border: 1px solid #25313D;
+    border: 1px solid var(--border);
     border-radius: 8px;
+    background: #FFFFFF;
   }
 
   .radar-table {
@@ -806,17 +815,17 @@
   }
 
   .radar-table th {
-    background: #0E1317;
-    color: #8792A0;
+    background: var(--surface);
+    color: var(--text-dim);
     padding: 8px 12px;
-    font-weight: 500;
-    border-bottom: 1px solid #25313D;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
   }
 
   .radar-table td {
     padding: 9px 12px;
-    border-bottom: 1px solid #1E2730;
-    color: #C0C8D0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
   }
 
   .radar-table tr:last-child td {
@@ -824,23 +833,23 @@
   }
 
   .radar-table .highlight-lvl {
-    color: #E7E4DA;
+    color: var(--text);
     font-weight: 600;
   }
 
   .radar-table .tag-bsl {
-    color: #E06C75;
-    font-weight: 500;
+    color: #B33939;
+    font-weight: 600;
   }
 
   .radar-table .tag-ssl {
-    color: #98C379;
-    font-weight: 500;
+    color: var(--tick-up);
+    font-weight: 600;
   }
 
   .radar-table .tag-eq {
-    color: #d4a034;
-    font-weight: 500;
+    color: var(--accent);
+    font-weight: 600;
   }
 
   /* Risk Officer Calculator */
@@ -871,26 +880,28 @@
   .calc-group label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10.5px;
-    color: #8792A0;
+    color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-weight: 500;
   }
 
   .calc-input {
-    background: #171E25;
-    border: 1px solid #2A3642;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 7px;
     padding: 8px 10px;
-    color: #E7E4DA;
+    color: var(--text);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
     outline: none;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     width: 100%;
   }
 
   .calc-input:focus {
     border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(168,121,26,0.12);
   }
 
   .calc-inst-row {
@@ -900,9 +911,9 @@
   }
 
   .calc-inst-btn {
-    background: #171E25;
-    border: 1px solid #2A3642;
-    color: #A1ACB8;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 5px 10px;
     border-radius: 6px;
     font-family: 'IBM Plex Mono', monospace;
@@ -913,7 +924,7 @@
 
   .calc-inst-btn:hover {
     border-color: var(--accent);
-    color: #fff;
+    background: var(--surface-hover);
   }
 
   .calc-inst-btn.active {
@@ -927,8 +938,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    background: #0E1317;
-    border: 1px solid #242E38;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 12px;
   }
@@ -948,19 +959,20 @@
   .res-lbl {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
-    color: #8792A0;
+    color: var(--text-dim);
     text-transform: uppercase;
+    font-weight: 500;
   }
 
   .res-val {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 15px;
     font-weight: 600;
-    color: #E7E4DA;
+    color: var(--text);
   }
 
   .res-val.accent {
-    color: #d4a034;
+    color: var(--accent);
   }
 
   .res-val.up {
@@ -977,10 +989,11 @@
   .host-quote {
     font-family: 'Fraunces', serif;
     font-size: 15px;
-    color: #E7E4DA;
+    color: var(--text);
     font-style: italic;
     padding: 10px 14px;
-    background: #161D24;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-left: 3px solid var(--accent);
     border-radius: 0 8px 8px 0;
   }
@@ -992,12 +1005,12 @@
   }
 
   .host-feat-item {
-    background: #151B21;
-    border: 1px solid #222C36;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 10px;
     font-size: 12px;
-    color: #B2BCC6;
+    color: var(--text);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1011,8 +1024,8 @@
 
   /* Console Interactive Bar */
   .cc-console-area {
-    border-top: 1px solid #1E2730;
-    background: #0C1014;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
     padding: 12px 14px;
     display: flex;
     flex-direction: column;
@@ -1035,7 +1048,7 @@
     width: 4px;
   }
   .cc-logs::-webkit-scrollbar-thumb {
-    background: #25313D;
+    background: var(--border);
     border-radius: 4px;
   }
 
@@ -1046,7 +1059,7 @@
   }
 
   .cc-log-time {
-    color: #5F6B78;
+    color: var(--text-dim);
     flex-shrink: 0;
   }
 
@@ -1056,7 +1069,7 @@
   }
 
   .cc-log-tag.agent {
-    color: #d4a034;
+    color: var(--accent);
   }
 
   .cc-log-tag.user {
@@ -1064,16 +1077,17 @@
   }
 
   .cc-log-tag.sys {
-    color: #5F6B78;
+    color: var(--text-dim);
   }
 
   .cc-log-text {
-    color: #D2D8DE;
+    color: var(--text);
   }
 
   .cc-log-text a {
     color: var(--accent);
     text-decoration: underline;
+    font-weight: 600;
   }
 
   .cc-chips-row {
@@ -1086,9 +1100,9 @@
   .cc-chips-row::-webkit-scrollbar { display: none; }
 
   .cc-chip-btn {
-    background: #171E25;
-    border: 1px solid #273440;
-    color: #B0BAC4;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 5px 10px;
     border-radius: 999px;
     font-family: 'IBM Plex Sans', sans-serif;
@@ -1111,11 +1125,11 @@
 
   .cc-input-row input {
     flex: 1;
-    background: #151B21;
-    border: 1px solid #25313D;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 7px;
     padding: 8px 12px;
-    color: #E7E4DA;
+    color: var(--text);
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 12px;
     outline: none;
@@ -1127,8 +1141,8 @@
   }
 
   .cc-send-btn {
-    background: var(--accent);
-    color: #fff;
+    background: var(--text);
+    color: var(--bg);
     border: none;
     border-radius: 7px;
     padding: 0 14px;
@@ -1138,7 +1152,7 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: filter 0.15s ease;
+    transition: all 0.15s ease;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -1146,7 +1160,8 @@
   }
 
   .cc-send-btn:hover {
-    filter: brightness(1.1);
+    background: var(--accent);
+    color: #fff;
   }
 
   /* ---------- VantageX Desk Agent ---------- */
@@ -1159,23 +1174,24 @@
     align-items: center;
     gap: 9px;
     padding: 12px 18px;
-    background: #151B21;
-    color: #E7E4DA;
-    border: 1px solid var(--accent);
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 999px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    box-shadow: 0 6px 20px rgba(34,38,26,0.12);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .agent-trigger:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(168,121,26,0.35);
-    border-color: #d4a034;
+    background: var(--surface-hover);
+    box-shadow: 0 10px 24px rgba(168,121,26,0.22);
+    border-color: var(--accent);
   }
 
   .agent-trigger svg {
@@ -1207,12 +1223,12 @@
     max-width: calc(100vw - 36px);
     height: 520px;
     max-height: calc(100vh - 104px);
-    background: #151B21;
-    color: #E7E4DA;
-    border: 1px solid #28333B;
-    border-top: 2px solid var(--accent);
+    background: #FAFBF3;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
     border-radius: 16px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 0 16px 40px rgba(34,38,26,0.18);
     display: flex;
     flex-direction: column;
     z-index: 1000;
@@ -1234,8 +1250,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 14px 16px;
-    background: #0E1317;
-    border-bottom: 1px solid #242E37;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
   }
 
   .agent-header-title {
@@ -1248,14 +1264,14 @@
     font-family: 'Fraunces', serif;
     font-size: 15px;
     font-weight: 500;
-    color: #E7E4DA;
+    color: var(--text);
     letter-spacing: 0.02em;
   }
 
   .agent-header-title span {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
-    color: #8792A0;
+    color: var(--text-dim);
     letter-spacing: 0.06em;
     display: flex;
     align-items: center;
@@ -1265,7 +1281,7 @@
   .agent-close {
     background: none;
     border: none;
-    color: #8792A0;
+    color: var(--text-dim);
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
@@ -1274,25 +1290,25 @@
   }
 
   .agent-close:hover {
-    color: #fff;
+    color: var(--text);
   }
 
   .agent-chips {
     display: flex;
     gap: 6px;
     padding: 10px 14px;
-    background: #11171D;
+    background: var(--bg);
     overflow-x: auto;
     scrollbar-width: none;
-    border-bottom: 1px solid #202A33;
+    border-bottom: 1px solid var(--border);
     flex-shrink: 0;
   }
   .agent-chips::-webkit-scrollbar { display: none; }
 
   .chip-btn {
-    background: #1C242C;
-    border: 1px solid #2C3843;
-    color: #C0C8D0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 5px 10px;
     border-radius: 999px;
     font-family: 'IBM Plex Sans', sans-serif;
@@ -1317,6 +1333,7 @@
     gap: 12px;
     font-size: 12.5px;
     line-height: 1.45;
+    background: #FAFBF3;
   }
 
   .msg {
@@ -1328,10 +1345,11 @@
 
   .msg.agent {
     align-self: flex-start;
-    background: #1E2730;
-    border: 1px solid #2A3642;
-    color: #E7E4DA;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    color: var(--text);
     border-bottom-left-radius: 2px;
+    box-shadow: 0 1px 3px rgba(34,38,26,0.04);
   }
 
   .msg.user {
@@ -1363,8 +1381,8 @@
     display: flex;
     gap: 4px;
     padding: 10px 14px;
-    background: #1E2730;
-    border: 1px solid #2A3642;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 10px;
     border-bottom-left-radius: 2px;
     align-self: flex-start;
@@ -1374,7 +1392,7 @@
   .typing-dot {
     width: 5px;
     height: 5px;
-    background: #8792A0;
+    background: var(--text-dim);
     border-radius: 50%;
     animation: typingBounce 1.2s infinite;
   }
@@ -1389,18 +1407,18 @@
   .agent-input-bar {
     display: flex;
     padding: 10px 12px;
-    background: #0E1317;
-    border-top: 1px solid #242E37;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
     gap: 8px;
   }
 
   .agent-input-bar input {
     flex: 1;
-    background: #171E25;
-    border: 1px solid #2A3642;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 8px 12px;
-    color: #E7E4DA;
+    color: var(--text);
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 12px;
     outline: none;
@@ -1615,8 +1633,8 @@
       <div class="cc-view-body">
         <!-- Commander Panel -->
         <div class="agent-view-panel active" id="panel-commander" role="tabpanel">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 8px;">Execution Protocol &middot; M–F Session Delivery</div>
-          <p style="margin: 0; font-size: 13.5px; color: #E7E4DA;">We execute strictly during <b>NY AM Open (9:30 AM EST)</b> and <b>Asia Open</b>. No impulsive market entries, no guessing games during low-volume chop. Follow the 4-step framework:</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Execution Protocol &middot; M–F Session Delivery</div>
+          <p style="margin: 0; font-size: 13.5px; color: var(--text);">We execute strictly during <b>NY AM Open (9:30 AM EST)</b> and <b>Asia Open</b>. No impulsive market entries, no guessing games during low-volume chop. Follow the 4-step framework:</p>
           <div class="commander-steps">
             <div class="c-step">
               <div class="c-step-num">01</div>
@@ -1651,8 +1669,8 @@
 
         <!-- Radar Panel -->
         <div class="agent-view-panel" id="panel-radar" role="tabpanel">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 8px;">Key Reference Levels &middot; Liquidity Map</div>
-          <p style="margin: 0; font-size: 13.5px; color: #E7E4DA;">Live session zones &amp; structural reference levels for <b>NQ</b> (Nasdaq) &amp; <b>ES</b> (S&amp;P 500). Full marked charts are posted inside VantageX daily.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">Key Reference Levels &middot; Liquidity Map</div>
+          <p style="margin: 0; font-size: 13.5px; color: var(--text);">Live session zones &amp; structural reference levels for <b>NQ</b> (Nasdaq) &amp; <b>ES</b> (S&amp;P 500). Full marked charts are posted inside VantageX daily.</p>
           <div class="radar-table-wrap">
             <table class="radar-table">
               <thead>
@@ -1691,15 +1709,15 @@
               </tbody>
             </table>
           </div>
-          <div style="margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0;">
+          <div style="margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim);">
             ⚡ <i>Live intraday chart updates &amp; sweep alerts published daily inside VantageX.</i>
           </div>
         </div>
 
         <!-- Risk Officer Panel -->
         <div class="agent-view-panel" id="panel-risk" role="tabpanel">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 6px;">Position Sizing &amp; Contract Calculator</div>
-          <p style="margin: 0 0 12px 0; font-size: 13px; color: #E7E4DA;">Never oversize. Calculate exact contracts based on your defined dollar risk and stop loss distance.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px;">Position Sizing &amp; Contract Calculator</div>
+          <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--text);">Never oversize. Calculate exact contracts based on your defined dollar risk and stop loss distance.</p>
           
           <div class="calc-container">
             <div class="calc-inst-row" role="radiogroup" aria-label="Instrument Select">
@@ -1747,12 +1765,12 @@
 
         <!-- Floor Host Panel -->
         <div class="agent-view-panel" id="panel-host" role="tabpanel">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 8px;">VantageX Private Trading Floor</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;">VantageX Private Trading Floor</div>
           <div class="host-brief">
             <div class="host-quote">
               &ldquo;You&rsquo;re either trading with VantageX or you&rsquo;re funding our exits.&rdquo;
             </div>
-            <p style="margin: 0; font-size: 13.5px; color: #D2D8DE;">
+            <p style="margin: 0; font-size: 13.5px; color: var(--text);">
               The floor connects disciplined futures traders executing live market structure on NQ and ES. No noisy signals or lagging chat—just sharp execution and marked levels.
             </p>
             <div class="host-features">
@@ -2244,13 +2262,13 @@
       if (contracts === 0) {
         if (resContracts) {
           resContracts.textContent = `0 (Oversized! Try Micro)`;
-          resContracts.style.color = "#E06C75";
+          resContracts.style.color = "#B33939";
         }
         if (resRiskAmt) resRiskAmt.textContent = `$${riskPerContract.toFixed(2)} (Exceeds Max)`;
       } else {
         if (resContracts) {
           resContracts.textContent = `${contracts} ${contracts === 1 ? 'Contract' : 'Contracts'} (${currentInstName})`;
-          resContracts.style.color = "#d4a034";
+          resContracts.style.color = "var(--accent)";
         }
         if (resRiskAmt) {
           resRiskAmt.textContent = `$${actualDollarRisk.toFixed(2)} (${actualRiskPct.toFixed(2)}%)`;
