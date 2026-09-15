@@ -511,6 +511,644 @@
     color: var(--text-dim);
   }
 
+  /* ---------- AI Agent Control Center ---------- */
+  .control-center {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .control-center::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: linear-gradient(90deg, var(--accent), var(--tick-up), var(--accent));
+  }
+
+  .cc-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cc-telemetry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #0E1317;
+    color: #A1ACB8;
+    border: 1px solid #222C36;
+    border-radius: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .cc-telemetry-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cc-telemetry-left strong {
+    color: #E7E4DA;
+    font-weight: 600;
+  }
+
+  .cc-telemetry-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #8792A0;
+  }
+
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  @media (min-width: 540px) {
+    .agent-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .agent-tab-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+    user-select: none;
+  }
+
+  .agent-tab-btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .agent-tab-btn.active {
+    background: #151B21;
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+
+  .tab-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(34,38,26,0.08);
+    color: var(--text-dim);
+    font-weight: 600;
+    transition: all 0.18s ease;
+  }
+
+  .agent-tab-btn.active .tab-badge {
+    background: rgba(168,121,26,0.25);
+    color: #d4a034;
+  }
+
+  .tab-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .tab-icon {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .tab-name {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    transition: color 0.18s ease;
+  }
+
+  .agent-tab-btn.active .tab-name {
+    color: #E7E4DA;
+  }
+
+  .tab-role {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    color: var(--text-dim);
+    line-height: 1.2;
+    transition: color 0.18s ease;
+  }
+
+  .agent-tab-btn.active .tab-role {
+    color: #8792A0;
+  }
+
+  /* Console Container */
+  .cc-viewport {
+    background: #11161B;
+    border: 1px solid #242E38;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cc-view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #0A0E11;
+    border-bottom: 1px solid #1E2730;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .cc-vh-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cc-vh-left strong {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #E7E4DA;
+  }
+
+  .cc-callsign {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    background: #1B232C;
+    color: #A1ACB8;
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 1px solid #2B3744;
+  }
+
+  .cc-vh-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--tick-up);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cc-view-body {
+    padding: 18px;
+    color: #D2D8DE;
+    font-size: 13.5px;
+    line-height: 1.5;
+    min-height: 220px;
+  }
+
+  .agent-view-panel {
+    display: none;
+    animation: ccFade 0.2s ease forwards;
+  }
+
+  .agent-view-panel.active {
+    display: block;
+  }
+
+  @keyframes ccFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Commander View */
+  .commander-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .c-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #161D24;
+    border: 1px solid #25313D;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .c-step-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--accent);
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .c-step-content strong {
+    color: #E7E4DA;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .c-step-content span {
+    color: #929CA8;
+    font-size: 12px;
+  }
+
+  /* Radar View */
+  .radar-table-wrap {
+    overflow-x: auto;
+    margin-top: 12px;
+    border: 1px solid #25313D;
+    border-radius: 8px;
+  }
+
+  .radar-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    text-align: left;
+  }
+
+  .radar-table th {
+    background: #0E1317;
+    color: #8792A0;
+    padding: 8px 12px;
+    font-weight: 500;
+    border-bottom: 1px solid #25313D;
+  }
+
+  .radar-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #1E2730;
+    color: #C0C8D0;
+  }
+
+  .radar-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .radar-table .highlight-lvl {
+    color: #E7E4DA;
+    font-weight: 600;
+  }
+
+  .radar-table .tag-bsl {
+    color: #E06C75;
+    font-weight: 500;
+  }
+
+  .radar-table .tag-ssl {
+    color: #98C379;
+    font-weight: 500;
+  }
+
+  .radar-table .tag-eq {
+    color: #d4a034;
+    font-weight: 500;
+  }
+
+  /* Risk Officer Calculator */
+  .calc-container {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .calc-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .calc-group label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: #8792A0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .calc-input {
+    background: #171E25;
+    border: 1px solid #2A3642;
+    border-radius: 7px;
+    padding: 8px 10px;
+    color: #E7E4DA;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s ease;
+    width: 100%;
+  }
+
+  .calc-input:focus {
+    border-color: var(--accent);
+  }
+
+  .calc-inst-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .calc-inst-btn {
+    background: #171E25;
+    border: 1px solid #2A3642;
+    color: #A1ACB8;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .calc-inst-btn:hover {
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .calc-inst-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .calc-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background: #0E1317;
+    border: 1px solid #242E38;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  @media (min-width: 500px) {
+    .calc-results {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .res-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .res-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #8792A0;
+    text-transform: uppercase;
+  }
+
+  .res-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: #E7E4DA;
+  }
+
+  .res-val.accent {
+    color: #d4a034;
+  }
+
+  .res-val.up {
+    color: var(--tick-up);
+  }
+
+  /* Floor Host View */
+  .host-brief {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .host-quote {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    color: #E7E4DA;
+    font-style: italic;
+    padding: 10px 14px;
+    background: #161D24;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .host-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .host-feat-item {
+    background: #151B21;
+    border: 1px solid #222C36;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 12px;
+    color: #B2BCC6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .host-feat-item::before {
+    content: "✓";
+    color: var(--tick-up);
+    font-weight: bold;
+  }
+
+  /* Console Interactive Bar */
+  .cc-console-area {
+    border-top: 1px solid #1E2730;
+    background: #0C1014;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cc-logs {
+    max-height: 130px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.45;
+    padding-right: 4px;
+  }
+
+  .cc-logs::-webkit-scrollbar {
+    width: 4px;
+  }
+  .cc-logs::-webkit-scrollbar-thumb {
+    background: #25313D;
+    border-radius: 4px;
+  }
+
+  .cc-log-entry {
+    display: flex;
+    gap: 8px;
+    word-break: break-word;
+  }
+
+  .cc-log-time {
+    color: #5F6B78;
+    flex-shrink: 0;
+  }
+
+  .cc-log-tag {
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .cc-log-tag.agent {
+    color: #d4a034;
+  }
+
+  .cc-log-tag.user {
+    color: var(--tick-up);
+  }
+
+  .cc-log-tag.sys {
+    color: #5F6B78;
+  }
+
+  .cc-log-text {
+    color: #D2D8DE;
+  }
+
+  .cc-log-text a {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .cc-chips-row {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .cc-chips-row::-webkit-scrollbar { display: none; }
+
+  .cc-chip-btn {
+    background: #171E25;
+    border: 1px solid #273440;
+    color: #B0BAC4;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .cc-chip-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .cc-input-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .cc-input-row input {
+    flex: 1;
+    background: #151B21;
+    border: 1px solid #25313D;
+    border-radius: 7px;
+    padding: 8px 12px;
+    color: #E7E4DA;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .cc-input-row input:focus {
+    border-color: var(--accent);
+  }
+
+  .cc-send-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .cc-send-btn:hover {
+    filter: brightness(1.1);
+  }
+
   /* ---------- VantageX Desk Agent ---------- */
   .agent-trigger {
     position: fixed;
@@ -902,6 +1540,260 @@
     </a>
   </section>
 
+  <!-- AI Agent Control Center -->
+  <section class="card control-center" id="control-center" aria-labelledby="control-center-title">
+    <div class="cc-header">
+      <div class="card-eyebrow">AI Desk Network · Control Center</div>
+      <h2 id="control-center-title" class="card-title">VantageX Agent Desk</h2>
+      <p class="card-desc">Multi-agent intelligence network monitoring session structure, execution rules, risk parameters, and private floor operations in real time.</p>
+    </div>
+
+    <div class="cc-telemetry" aria-label="Desk Telemetry Status">
+      <div class="cc-telemetry-left">
+        <span class="agent-pulse" aria-hidden="true"></span>
+        <span>NETWORK: <strong>4 AGENTS ONLINE</strong></span>
+      </div>
+      <div class="cc-telemetry-right">
+        <span>LATENCY: <b>8ms</b></span>
+        <span>&middot;</span>
+        <span>SESSIONS: <b>NY AM · ASIA</b></span>
+      </div>
+    </div>
+
+    <!-- Agent Selection Tabs -->
+    <div class="agent-grid" role="tablist" aria-label="AI Agents">
+      <button class="agent-tab-btn active" role="tab" aria-selected="true" data-target="commander" type="button">
+        <span class="tab-badge">CB-BRAIN</span>
+        <div class="tab-title-wrap">
+          <span class="tab-icon">🧠</span>
+          <span class="tab-name">Commander</span>
+        </div>
+        <span class="tab-role">Strategy &amp; Protocol</span>
+      </button>
+
+      <button class="agent-tab-btn" role="tab" aria-selected="false" data-target="radar" type="button">
+        <span class="tab-badge">CB-SCOUT</span>
+        <div class="tab-title-wrap">
+          <span class="tab-icon">📡</span>
+          <span class="tab-name">Radar</span>
+        </div>
+        <span class="tab-role">Levels &amp; Traps</span>
+      </button>
+
+      <button class="agent-tab-btn" role="tab" aria-selected="false" data-target="risk" type="button">
+        <span class="tab-badge">CB-RISK</span>
+        <div class="tab-title-wrap">
+          <span class="tab-icon">🛡️</span>
+          <span class="tab-name">Risk Officer</span>
+        </div>
+        <span class="tab-role">Position Calculator</span>
+      </button>
+
+      <button class="agent-tab-btn" role="tab" aria-selected="false" data-target="host" type="button">
+        <span class="tab-badge">CB-HOST</span>
+        <div class="tab-title-wrap">
+          <span class="tab-icon">⚡</span>
+          <span class="tab-name">Floor Host</span>
+        </div>
+        <span class="tab-role">VantageX Floor</span>
+      </button>
+    </div>
+
+    <!-- Active Agent Console Viewport -->
+    <div class="cc-viewport">
+      <div class="cc-view-header">
+        <div class="cc-vh-left">
+          <strong id="cc-active-name">Commander</strong>
+          <span class="cc-callsign" id="cc-active-callsign">CALLSIGN: CB-BRAIN</span>
+        </div>
+        <div class="cc-vh-status">
+          <span class="agent-pulse"></span>
+          <span id="cc-active-status">ONLINE &middot; ACTIVE</span>
+        </div>
+      </div>
+
+      <div class="cc-view-body">
+        <!-- Commander Panel -->
+        <div class="agent-view-panel active" id="panel-commander" role="tabpanel">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 8px;">Execution Protocol &middot; M–F Session Delivery</div>
+          <p style="margin: 0; font-size: 13.5px; color: #E7E4DA;">We execute strictly during <b>NY AM Open (9:30 AM EST)</b> and <b>Asia Open</b>. No impulsive market entries, no guessing games during low-volume chop. Follow the 4-step framework:</p>
+          <div class="commander-steps">
+            <div class="c-step">
+              <div class="c-step-num">01</div>
+              <div class="c-step-content">
+                <strong>Pre-Market Key Zone Mapping</strong>
+                <span>Mark Previous Day High/Low, Session Open, and balance equilibrium.</span>
+              </div>
+            </div>
+            <div class="c-step">
+              <div class="c-step-num">02</div>
+              <div class="c-step-content">
+                <strong>Liquidity Sweep Identification</strong>
+                <span>Wait for aggressive breakout buyers/sellers to get trapped outside marked levels.</span>
+              </div>
+            </div>
+            <div class="c-step">
+              <div class="c-step-num">03</div>
+              <div class="c-step-content">
+                <strong>Displacement &amp; Structural Shift</strong>
+                <span>Confirm institutional reversal candle back inside value before touching orders.</span>
+              </div>
+            </div>
+            <div class="c-step">
+              <div class="c-step-num">04</div>
+              <div class="c-step-content">
+                <strong>Mathematical Execution</strong>
+                <span>Fixed stop beyond the sweep pivot. Minimum 1:2 to 1:3 R:R target. Zero hesitation.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Radar Panel -->
+        <div class="agent-view-panel" id="panel-radar" role="tabpanel">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 8px;">Key Reference Levels &middot; Liquidity Map</div>
+          <p style="margin: 0; font-size: 13.5px; color: #E7E4DA;">Live session zones &amp; structural reference levels for <b>NQ</b> (Nasdaq) &amp; <b>ES</b> (S&amp;P 500). Full marked charts are posted inside VantageX daily.</p>
+          <div class="radar-table-wrap">
+            <table class="radar-table">
+              <thead>
+                <tr>
+                  <th>Session Level</th>
+                  <th>NQ Zone</th>
+                  <th>ES Zone</th>
+                  <th>Target Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Session High (PDH)</b></td>
+                  <td class="highlight-lvl">21,980.50</td>
+                  <td class="highlight-lvl">6,048.25</td>
+                  <td><span class="tag-bsl">● Buy-Side Liquidity</span></td>
+                </tr>
+                <tr>
+                  <td><b>Equilibrium (EQ)</b></td>
+                  <td class="highlight-lvl">21,850.25</td>
+                  <td class="highlight-lvl">6,018.75</td>
+                  <td><span class="tag-eq">● Fair Value Balance</span></td>
+                </tr>
+                <tr>
+                  <td><b>Session Low (PDL)</b></td>
+                  <td class="highlight-lvl">21,720.00</td>
+                  <td class="highlight-lvl">5,988.50</td>
+                  <td><span class="tag-ssl">● Sell-Side Liquidity</span></td>
+                </tr>
+                <tr>
+                  <td><b>Opening Drive</b></td>
+                  <td>09:30 EST</td>
+                  <td>09:30 EST</td>
+                  <td><span>● Volatility Injection</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0;">
+            ⚡ <i>Live intraday chart updates &amp; sweep alerts published daily inside VantageX.</i>
+          </div>
+        </div>
+
+        <!-- Risk Officer Panel -->
+        <div class="agent-view-panel" id="panel-risk" role="tabpanel">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 6px;">Position Sizing &amp; Contract Calculator</div>
+          <p style="margin: 0 0 12px 0; font-size: 13px; color: #E7E4DA;">Never oversize. Calculate exact contracts based on your defined dollar risk and stop loss distance.</p>
+          
+          <div class="calc-container">
+            <div class="calc-inst-row" role="radiogroup" aria-label="Instrument Select">
+              <button class="calc-inst-btn active" type="button" data-inst="NQ" data-val="20">NQ ($20/pt)</button>
+              <button class="calc-inst-btn" type="button" data-inst="MNQ" data-val="2">MNQ ($2/pt)</button>
+              <button class="calc-inst-btn" type="button" data-inst="ES" data-val="50">ES ($50/pt)</button>
+              <button class="calc-inst-btn" type="button" data-inst="MES" data-val="5">MES ($5/pt)</button>
+            </div>
+
+            <div class="calc-grid">
+              <div class="calc-group">
+                <label for="calc-balance">Account Balance ($)</label>
+                <input class="calc-input" type="number" id="calc-balance" value="50000" step="1000" min="1000" />
+              </div>
+              <div class="calc-group">
+                <label for="calc-risk-pct">Risk Allowed (%)</label>
+                <input class="calc-input" type="number" id="calc-risk-pct" value="1.0" step="0.25" min="0.1" max="10" />
+              </div>
+              <div class="calc-group">
+                <label for="calc-stop-pts">Stop Distance (Pts)</label>
+                <input class="calc-input" type="number" id="calc-stop-pts" value="15.0" step="0.5" min="1" />
+              </div>
+            </div>
+
+            <div class="calc-results" aria-live="polite">
+              <div class="res-item">
+                <span class="res-lbl">Max Contracts</span>
+                <span class="res-val accent" id="res-contracts">1 Contract (NQ)</span>
+              </div>
+              <div class="res-item">
+                <span class="res-lbl">Risk Amount</span>
+                <span class="res-val" id="res-risk-amt">$300.00 (0.60%)</span>
+              </div>
+              <div class="res-item">
+                <span class="res-lbl">Target 2R</span>
+                <span class="res-val up" id="res-target-2r">+30.00 pts</span>
+              </div>
+              <div class="res-item">
+                <span class="res-lbl">Target 3R</span>
+                <span class="res-val up" id="res-target-3r">+45.00 pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floor Host Panel -->
+        <div class="agent-view-panel" id="panel-host" role="tabpanel">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #8792A0; text-transform: uppercase; margin-bottom: 8px;">VantageX Private Trading Floor</div>
+          <div class="host-brief">
+            <div class="host-quote">
+              &ldquo;You&rsquo;re either trading with VantageX or you&rsquo;re funding our exits.&rdquo;
+            </div>
+            <p style="margin: 0; font-size: 13.5px; color: #D2D8DE;">
+              The floor connects disciplined futures traders executing live market structure on NQ and ES. No noisy signals or lagging chat—just sharp execution and marked levels.
+            </p>
+            <div class="host-features">
+              <div class="host-feat-item">Daily Pre-Market Levels</div>
+              <div class="host-feat-item">NY AM &amp; Asia Prep</div>
+              <div class="host-feat-item">Execution Recaps</div>
+              <div class="host-feat-item">Member Voice Channels</div>
+            </div>
+            <a class="btn-primary" href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer" style="margin-top: 4px;">
+              <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+              <span>Enter VantageX Floor &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Console Transmissions Area -->
+      <div class="cc-console-area">
+        <div class="cc-logs" id="cc-logs" aria-live="polite">
+          <div class="cc-log-entry">
+            <span class="cc-log-time">SYSTEM</span>
+            <span class="cc-log-tag sys">[LINK]</span>
+            <span class="cc-log-text">Control Center online. 4 desk agents synchronized. Select an agent or send a directive below.</span>
+          </div>
+        </div>
+
+        <div class="cc-chips-row" id="cc-chips-row">
+          <!-- Populated dynamically based on active agent -->
+        </div>
+
+        <form class="cc-input-row" id="cc-form">
+          <input type="text" id="cc-input" placeholder="Transmit order or question to Commander..." autocomplete="off" />
+          <button type="submit" class="cc-send-btn">
+            <span>Transmit</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <section class="card" aria-labelledby="video-title">
     <div class="card-eyebrow">Featured Video · YouTube</div>
     <h2 id="video-title" class="card-title">Trade Recaps & Setup Breakdowns</h2>
@@ -1200,6 +2092,268 @@
         respond(query);
       });
     }
+  })();
+
+  // AI Agent Control Center Interactive Logic
+  (function initControlCenter() {
+    const tabs = document.querySelectorAll('.agent-tab-btn');
+    const panels = {
+      commander: document.getElementById('panel-commander'),
+      radar: document.getElementById('panel-radar'),
+      risk: document.getElementById('panel-risk'),
+      host: document.getElementById('panel-host')
+    };
+    const activeName = document.getElementById('cc-active-name');
+    const activeCallsign = document.getElementById('cc-active-callsign');
+    const activeStatus = document.getElementById('cc-active-status');
+    const logs = document.getElementById('cc-logs');
+    const chipsRow = document.getElementById('cc-chips-row');
+    const form = document.getElementById('cc-form');
+    const input = document.getElementById('cc-input');
+
+    if (!tabs.length || !logs || !form || !input) return;
+
+    const agentMeta = {
+      commander: {
+        name: "Commander",
+        callsign: "CALLSIGN: CB-BRAIN",
+        status: "ONLINE · ACTIVE",
+        placeholder: "Transmit order or question to Commander...",
+        chips: ["Execute Checklist", "Session Rules", "Why Key Levels?", "Trade Midday?"]
+      },
+      radar: {
+        name: "Radar",
+        callsign: "CALLSIGN: CB-SCOUT",
+        status: "SCANNING · LIVE FEED",
+        placeholder: "Ask Radar for levels, sweeps, or zones...",
+        chips: ["Sweep Detected?", "Next NQ Level", "ES Key Zone", "Asia vs NY"]
+      },
+      risk: {
+        name: "Risk Officer",
+        callsign: "CALLSIGN: CB-RISK",
+        status: "MONITORING · RULES ENFORCED",
+        placeholder: "Ask Risk Officer about sizing, rules, or stop...",
+        chips: ["Max Loss Rule", "R:R Formula", "NQ vs MNQ", "Discipline Check"]
+      },
+      host: {
+        name: "Floor Host",
+        callsign: "CALLSIGN: CB-HOST",
+        status: "ONLINE · VIP GATE OPEN",
+        placeholder: "Ask Floor Host about entering VantageX...",
+        chips: ["Enter Floor", "Floor Privileges", "Pre-Market Prep", "Who is VantageX?"]
+      }
+    };
+
+    let currentAgent = "commander";
+
+    function getTimeString() {
+      const d = new Date();
+      return d.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    function appendLog(tag, tagType, text) {
+      const entry = document.createElement('div');
+      entry.className = 'cc-log-entry';
+      entry.innerHTML = `
+        <span class="cc-log-time">${getTimeString()}</span>
+        <span class="cc-log-tag ${tagType}">[${tag}]</span>
+        <span class="cc-log-text">${text}</span>
+      `;
+      logs.appendChild(entry);
+      logs.scrollTop = logs.scrollHeight;
+    }
+
+    function renderChips(agentKey) {
+      chipsRow.innerHTML = '';
+      const chips = agentMeta[agentKey]?.chips || [];
+      chips.forEach(chipText => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cc-chip-btn';
+        btn.textContent = chipText;
+        btn.addEventListener('click', () => {
+          handleUserCommand(chipText);
+        });
+        chipsRow.appendChild(btn);
+      });
+    }
+
+    function switchAgent(agentKey) {
+      if (!agentMeta[agentKey]) return;
+      currentAgent = agentKey;
+
+      tabs.forEach(btn => {
+        const match = btn.dataset.target === agentKey;
+        btn.classList.toggle('active', match);
+        btn.setAttribute('aria-selected', match ? 'true' : 'false');
+      });
+
+      Object.keys(panels).forEach(k => {
+        if (panels[k]) {
+          panels[k].classList.toggle('active', k === agentKey);
+        }
+      });
+
+      const meta = agentMeta[agentKey];
+      if (activeName) activeName.textContent = meta.name;
+      if (activeCallsign) activeCallsign.textContent = meta.callsign;
+      if (activeStatus) activeStatus.textContent = meta.status;
+      if (input) input.placeholder = meta.placeholder;
+
+      renderChips(agentKey);
+      appendLog(meta.name.toUpperCase(), 'agent', `Active console linked to ${meta.name} (${meta.callsign.replace('CALLSIGN: ', '')}). Ready for directives.`);
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        if (target) switchAgent(target);
+      });
+    });
+
+    renderChips('commander');
+
+    // Risk Officer Interactive Calculator Logic
+    const balanceInput = document.getElementById('calc-balance');
+    const riskPctInput = document.getElementById('calc-risk-pct');
+    const stopPtsInput = document.getElementById('calc-stop-pts');
+    const instButtons = document.querySelectorAll('.calc-inst-btn');
+    const resContracts = document.getElementById('res-contracts');
+    const resRiskAmt = document.getElementById('res-risk-amt');
+    const resTarget2r = document.getElementById('res-target-2r');
+    const resTarget3r = document.getElementById('res-target-3r');
+
+    let currentPointVal = 20; // Default NQ
+    let currentInstName = "NQ";
+
+    function recalculatePosition() {
+      if (!balanceInput || !riskPctInput || !stopPtsInput) return;
+      const balance = parseFloat(balanceInput.value) || 50000;
+      const riskPct = parseFloat(riskPctInput.value) || 1.0;
+      const stopPts = parseFloat(stopPtsInput.value) || 15.0;
+
+      const maxDollarRiskAllowed = balance * (riskPct / 100);
+      const riskPerContract = stopPts * currentPointVal;
+
+      if (riskPerContract <= 0) return;
+
+      const contracts = Math.floor(maxDollarRiskAllowed / riskPerContract);
+      const actualDollarRisk = contracts * riskPerContract;
+      const actualRiskPct = (actualDollarRisk / balance) * 100;
+
+      if (contracts === 0) {
+        if (resContracts) {
+          resContracts.textContent = `0 (Oversized! Try Micro)`;
+          resContracts.style.color = "#E06C75";
+        }
+        if (resRiskAmt) resRiskAmt.textContent = `$${riskPerContract.toFixed(2)} (Exceeds Max)`;
+      } else {
+        if (resContracts) {
+          resContracts.textContent = `${contracts} ${contracts === 1 ? 'Contract' : 'Contracts'} (${currentInstName})`;
+          resContracts.style.color = "#d4a034";
+        }
+        if (resRiskAmt) {
+          resRiskAmt.textContent = `$${actualDollarRisk.toFixed(2)} (${actualRiskPct.toFixed(2)}%)`;
+        }
+      }
+
+      const target2rPts = stopPts * 2;
+      const target3rPts = stopPts * 3;
+      if (resTarget2r) resTarget2r.textContent = `+${target2rPts.toFixed(2)} pts (+$${(actualDollarRisk * 2).toFixed(2)})`;
+      if (resTarget3r) resTarget3r.textContent = `+${target3rPts.toFixed(2)} pts (+$${(actualDollarRisk * 3).toFixed(2)})`;
+    }
+
+    instButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        instButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentPointVal = parseFloat(btn.dataset.val) || 20;
+        currentInstName = btn.dataset.inst || "NQ";
+        recalculatePosition();
+        appendLog('CB-RISK', 'agent', `Instrument set to ${currentInstName} ($${currentPointVal}/point). Sizing recalculated.`);
+      });
+    });
+
+    [balanceInput, riskPctInput, stopPtsInput].forEach(inp => {
+      if (inp) inp.addEventListener('input', recalculatePosition);
+    });
+
+    recalculatePosition();
+
+    // Query & Command Processing
+    function handleUserCommand(cmdText) {
+      if (!cmdText.trim()) return;
+      appendLog('OPERATOR', 'user', cmdText);
+
+      const q = cmdText.toLowerCase().trim();
+      let reply = "";
+      const joinLink = '<a href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer">Enter VantageX Floor &rarr;</a>';
+
+      if (currentAgent === "commander") {
+        if (q.includes("checklist") || q.includes("execute") || q.includes("step")) {
+          reply = "<b>Protocol Confirmed:</b> 1. Map PDH/PDL & EQ &middot; 2. Wait for Session Open liquidity sweep &middot; 3. Confirm structural displacement back into value &middot; 4. Execute with defined mathematical stop beyond the sweep. Zero emotion.";
+        } else if (q.includes("rules") || q.includes("routine") || q.includes("when")) {
+          reply = "<b>Session Rule:</b> M&ndash;F NY AM Open (9:30 AM EST) and Asia Open only. Midday chop is where undisciplined traders donate liquidity to our exits. Stay flat during dead zones.";
+        } else if (q.includes("why") || q.includes("levels") || q.includes("edge")) {
+          reply = "Retail traders trade arbitrary indicators; institutions trade key balance and liquidity pools. We wait at predetermined levels where institutions are forced to transact.";
+        } else if (q.includes("midday") || q.includes("chop") || q.includes("lunch")) {
+          reply = "Negative. Midday trading is strictly forbidden on our desk. Volume drops, algorithms run chop ranges, and slippage rises. Protect your morning gains.";
+        } else {
+          reply = `Directive registered for Commander. Session delivery remains focused on marked levels. For live session trade reviews and execution breakdowns, step inside: ${joinLink}`;
+        }
+        setTimeout(() => appendLog('COMMANDER', 'agent', reply), 200);
+
+      } else if (currentAgent === "radar") {
+        if (q.includes("sweep") || q.includes("trap") || q.includes("false")) {
+          reply = "<b>Liquidity Radar:</b> Monitoring probes outside PDH/PDL. When price sweeps a key extreme and immediately closes back inside value, a trap is sprung. Alerts trigger inside VantageX.";
+        } else if (q.includes("nq") || q.includes("level")) {
+          reply = "<b>NQ Key Zones:</b> PDH: 21,980.50 &middot; EQ: 21,850.25 &middot; PDL: 21,720.00. Live intraday dynamic adjustments are published on the floor: " + joinLink;
+        } else if (q.includes("es") || q.includes("s&p")) {
+          reply = "<b>ES Key Zones:</b> PDH: 6,048.25 &middot; Equilibrium: 6,018.75 &middot; PDL: 5,988.50. Watch for SMT divergence between NQ and ES during the open.";
+        } else if (q.includes("asia") || q.includes("ny")) {
+          reply = "Asia Open establishes initial overnight orderbook liquidity. NY AM Open delivers the institutional volatility that sweeps or expands those parameters.";
+        } else {
+          reply = `Radar telemetry updated. Intraday levels and chart markups are posted daily for VantageX floor members: ${joinLink}`;
+        }
+        setTimeout(() => appendLog('RADAR', 'agent', reply), 200);
+
+      } else if (currentAgent === "risk") {
+        if (q.includes("max loss") || q.includes("limit") || q.includes("rule")) {
+          reply = "<b>Risk Command:</b> Maximum 1.0%&ndash;2.0% risk per trade. Daily hard stop: 2 full losses and the platform is locked. You can't win if you don't survive drawdowns.";
+        } else if (q.includes("r:r") || q.includes("target") || q.includes("ratio")) {
+          reply = "<b>Mathematical Edge:</b> Minimum 1:2 R:R. At 1:2 R:R, you only need a 35% win rate to be profitable. Focus on payoff asymmetry, not win-rate illusions.";
+        } else if (q.includes("mnq") || q.includes("micro") || q.includes("nq vs")) {
+          reply = "NQ is $20/point ($5/tick); MNQ is $2/point ($0.50/tick). If your stop distance requires >15 points and pushes past your dollar risk limit, immediately downsize to MNQ.";
+        } else if (q.includes("discipline") || q.includes("size") || q.includes("account")) {
+          reply = "Never revenge trade or double position size after a loss. Use the interactive calculator above to calibrate contracts before entering any order.";
+        } else {
+          reply = "Risk parameters verified. Use the calculator above to size your contracts accurately, and never breach your stop limit.";
+        }
+        setTimeout(() => appendLog('RISK-OFFICER', 'agent', reply), 200);
+
+      } else if (currentAgent === "host") {
+        if (q.includes("floor") || q.includes("enter") || q.includes("join")) {
+          reply = `<b>Welcome to VantageX:</b> The private floor for disciplined futures traders. Access daily marked levels, live prep, and community: ${joinLink}`;
+        } else if (q.includes("privilege") || q.includes("perk") || q.includes("included")) {
+          reply = "Floor privileges: Daily marked NQ/ES charts before 9:30 AM EST, pre-market voice/stream prep, live session execution reviews, and dedicated trader voice channels.";
+        } else if (q.includes("prep") || q.includes("morning") || q.includes("pre-market")) {
+          reply = "Pre-market briefing starts before the 9:30 AM EST bell. We map out institutional liquidity pools so you enter the open with absolute clarity.";
+        } else if (q.includes("who") || q.includes("vantagex") || q.includes("what")) {
+          reply = "<b>VantageX</b> is the private futures trading room founded by Charles Burgess (@becharlesss). <i>You're either trading with VantageX or you're funding our exits.</i>";
+        } else {
+          reply = `Ready to step onto the trading floor? Join the room here: ${joinLink}`;
+        }
+        setTimeout(() => appendLog('FLOOR-HOST', 'agent', reply), 200);
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      handleUserCommand(text);
+    });
   })();
 </script>
 
