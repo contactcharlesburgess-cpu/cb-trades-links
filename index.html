@@ -1925,7 +1925,7 @@
 
       if (day === 0 && timeNum >= 18 * 60) {
         dot.className = 'status-dot live';
-        text.textContent = 'Globex Open · Futures Live';
+        text.textContent = 'Market Open · Asia Session';
         return;
       }
 
@@ -1935,9 +1935,12 @@
       } else if (timeNum >= 240 && timeNum < 570) {
         dot.className = 'status-dot pre';
         text.textContent = 'Pre-Market · NY AM Prep';
-      } else if (timeNum >= 960 && timeNum < 1200) {
+      } else if (timeNum >= 960 && timeNum < 1080) {
         dot.className = 'status-dot pre';
-        text.textContent = 'After-Hours · NY Session';
+        text.textContent = 'Settlement · Asia Prep';
+      } else if (timeNum >= 1080 && timeNum < 1320) {
+        dot.className = 'status-dot live';
+        text.textContent = 'Market Open · Asia Session';
       } else {
         dot.className = 'status-dot live';
         text.textContent = 'Globex Open · Overnight';
@@ -1963,30 +1966,41 @@
       let nextEventName = "";
       let diffSecs = 0;
 
-      if (day >= 1 && day <= 5) {
-        if (currentSecs < 10800) {
-          nextEventName = "London Open";
-          diffSecs = 10800 - currentSecs;
-        } else if (currentSecs < 34200) {
+      if (day >= 1 && day <= 4) {
+        if (currentSecs < 34200) {
           nextEventName = "NY Open";
           diffSecs = 34200 - currentSecs;
         } else if (currentSecs < 57600) {
           nextEventName = "NY Close";
           diffSecs = 57600 - currentSecs;
+        } else if (currentSecs < 64800) {
+          nextEventName = "Asia Open";
+          diffSecs = 64800 - currentSecs;
         } else {
-          nextEventName = day === 5 ? "Globex Sunday" : "London Open";
-          diffSecs = (86400 - currentSecs) + 10800;
+          nextEventName = "NY Open";
+          diffSecs = (86400 - currentSecs) + 34200;
+        }
+      } else if (day === 5) {
+        if (currentSecs < 34200) {
+          nextEventName = "NY Open";
+          diffSecs = 34200 - currentSecs;
+        } else if (currentSecs < 61200) {
+          nextEventName = "Weekend Close";
+          diffSecs = 61200 - currentSecs;
+        } else {
+          nextEventName = "Globex Sunday";
+          diffSecs = (86400 - currentSecs) + (86400 * 1) + (18 * 3600);
         }
       } else if (day === 6) {
         nextEventName = "Globex Open";
         diffSecs = (86400 - currentSecs) + (18 * 3600);
       } else if (day === 0) {
         if (currentSecs < 18 * 3600) {
-          nextEventName = "Globex Open";
+          nextEventName = "Asia Open";
           diffSecs = (18 * 3600) - currentSecs;
         } else {
-          nextEventName = "London Open";
-          diffSecs = (86400 - currentSecs) + 10800;
+          nextEventName = "NY Open";
+          diffSecs = (86400 - currentSecs) + 34200;
         }
       }
 
