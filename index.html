@@ -369,6 +369,262 @@
     color: var(--text);
   }
 
+  .timer-strip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    box-shadow: var(--shadow);
+    align-self: center;
+  }
+
+  .timer-strip b {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .timer-strip .timer-digits {
+    color: var(--accent);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .discord-featured {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .discord-featured::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--tick-up));
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 9px;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 4px rgba(34,38,26,0.1);
+  }
+
+  .btn-primary svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .btn-primary:hover, .btn-primary:focus-visible {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(168,121,26,0.25);
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    user-select: none;
+  }
+
+  .check-item:hover {
+    background: var(--surface-hover);
+  }
+
+  .check-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+    cursor: pointer;
+    flex: none;
+    display: grid;
+    place-content: center;
+    margin-top: 2px;
+    transition: all 0.15s ease;
+  }
+
+  .check-item input[type="checkbox"]:checked {
+    background: var(--tick-up);
+    border-color: var(--tick-up);
+  }
+
+  .check-item input[type="checkbox"]:checked::after {
+    content: "";
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+
+  .check-label {
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .check-label strong {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: block;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .stack-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    margin-top: 6px;
+  }
+
+  .stack-status.ready {
+    background: rgba(46,125,107,0.12);
+    border-color: var(--tick-up);
+    color: var(--tick-up);
+    font-weight: 600;
+  }
+
+  .stack-status.pending {
+    color: var(--text-dim);
+  }
+
+  .btn-reset {
+    background: none;
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .btn-reset:hover {
+    color: var(--accent);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    overflow: hidden;
+    transition: background 0.15s ease;
+  }
+
+  .faq-item[open] {
+    background: var(--surface-hover);
+  }
+
+  .faq-summary {
+    padding: 14px 16px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    list-style: none;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary::after {
+    content: "+";
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 400;
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item[open] .faq-summary::after {
+    content: "−";
+  }
+
+  .faq-answer {
+    padding: 0 16px 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+
   footer {
     text-align: center;
     font-family: 'IBM Plex Mono', monospace;
@@ -389,9 +645,24 @@
       <span class="status-dot live"></span>
       <span class="status-text">NY Market Open</span>
     </div>
+    <div class="timer-strip" aria-label="Session Countdown">
+      <span>Next: <b id="session-name">NY Open</b></span>
+      <span>&middot;</span>
+      <span class="timer-digits" id="session-timer">--:--:--</span>
+    </div>
     <h1>CB Trades</h1>
     <p class="tagline">Charts, setups, and the occasional green day. Find everything on <span class="mono">@becharlesss</span> below.</p>
   </header>
+
+  <section class="discord-featured" aria-labelledby="discord-title">
+    <div class="card-eyebrow">Trading Floor &middot; Free Community</div>
+    <h2 id="discord-title" class="card-title">Join the CB Trades Floor</h2>
+    <p class="card-desc">Daily pre-market prep, key levels marked on NQ/ES, real-time setup discussions, and execution reviews with active futures traders.</p>
+    <a class="btn-primary" href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+      <span>Join Discord Community &rarr;</span>
+    </a>
+  </section>
 
   <nav class="board" aria-label="Links">
     <a class="row" href="https://www.tiktok.com/@becharlesss" target="_blank" rel="noopener noreferrer">
@@ -459,6 +730,53 @@
     </div>
   </section>
 
+  <section class="card" aria-labelledby="stack-title">
+    <div class="card-eyebrow">Interactive Tool &middot; Execution Stack</div>
+    <h2 id="stack-title" class="card-title">Trade Confirmation Stack</h2>
+    <p class="card-desc">All 5 rules must be checked before clicking entry. If any condition is missing, stand down.</p>
+    <div class="check-list">
+      <label class="check-item">
+        <input type="checkbox">
+        <span class="check-label">
+          <strong>1. Key Level Manipulation</strong>
+          Price ran key liquidity (PDH/PDL or Session H/L) into a marked supply/demand zone.
+        </span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <span class="check-label">
+          <strong>2. Inversion (iFVG)</strong>
+          Fair Value Gap closed through and inverted to opposing support/resistance.
+        </span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <span class="check-label">
+          <strong>3. Displacement + CISD</strong>
+          Strong candle closed back beyond origin leg, printing Change in State of Delivery.
+        </span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <span class="check-label">
+          <strong>4. Fresh FVG Tap (Second Entry)</strong>
+          Price retraced and tapped into the displacement FVG without invalidating the far side.
+        </span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox">
+        <span class="check-label">
+          <strong>5. Risk/Reward Ratio &ge; 2R</strong>
+          Target liquidity or opposing pool offers at least 2R to defined stop buffer.
+        </span>
+      </label>
+    </div>
+    <div class="stack-status pending" id="stack-status">
+      <span class="status-msg">STAND DOWN &middot; <span id="stack-count">0/5 CONFIRMED</span></span>
+      <button type="button" class="btn-reset" id="stack-reset">Reset</button>
+    </div>
+  </section>
+
   <section class="card" aria-labelledby="video-title">
     <div class="card-eyebrow">Featured Video · YouTube</div>
     <h2 id="video-title" class="card-title">Trade Recaps & Setup Breakdowns</h2>
@@ -475,6 +793,29 @@
       <span>Watch on YouTube</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
+  </section>
+
+  <section class="card" aria-labelledby="faq-title">
+    <div class="card-eyebrow">Trader FAQ &middot; About</div>
+    <h2 id="faq-title" class="card-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-summary">What instruments do you trade?</summary>
+        <div class="faq-answer">Primary focus is on equity index futures: <b>NQ</b> (E-mini Nasdaq 100) and <b>ES</b> (E-mini S&amp;P 500), alongside high-relative-volume large-cap tech equities.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary">What timeframes do you execute on?</summary>
+        <div class="faq-answer">Daily and 1-Hour charts determine higher-timeframe narrative, liquidity draws, and key levels. Execution entries are taken strictly on the <b>1-minute</b> or <b>30-second</b> charts.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary">What charting and broker software?</summary>
+        <div class="faq-answer"><b>TradingView</b> for technical analysis and session level marking; <b>Tradovate / NinjaTrader</b> for direct market execution.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-summary">Is there a paid course or VIP group?</summary>
+        <div class="faq-answer">No. The CB Trades community on Discord is <b>100% free</b>. All study guides, daily market briefs, and execution reviews are shared openly.</div>
+      </details>
+    </div>
   </section>
 
   <div class="ticker" aria-hidden="true">
@@ -539,6 +880,93 @@
   }
   updateMarketStatus();
   setInterval(updateMarketStatus, 30000);
+
+  function updateCountdown() {
+    try {
+      const now = new Date();
+      const nyString = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+      const nyDate = new Date(nyString);
+      const day = nyDate.getDay();
+      const h = nyDate.getHours();
+      const m = nyDate.getMinutes();
+      const s = nyDate.getSeconds();
+      const currentSecs = h * 3600 + m * 60 + s;
+
+      let nextEventName = "";
+      let diffSecs = 0;
+
+      if (day >= 1 && day <= 5) {
+        if (currentSecs < 10800) {
+          nextEventName = "London Open";
+          diffSecs = 10800 - currentSecs;
+        } else if (currentSecs < 34200) {
+          nextEventName = "NY Open";
+          diffSecs = 34200 - currentSecs;
+        } else if (currentSecs < 57600) {
+          nextEventName = "NY Close";
+          diffSecs = 57600 - currentSecs;
+        } else {
+          nextEventName = day === 5 ? "Globex Sunday" : "London Open";
+          diffSecs = (86400 - currentSecs) + 10800;
+        }
+      } else if (day === 6) {
+        nextEventName = "Globex Open";
+        diffSecs = (86400 - currentSecs) + (18 * 3600);
+      } else if (day === 0) {
+        if (currentSecs < 18 * 3600) {
+          nextEventName = "Globex Open";
+          diffSecs = (18 * 3600) - currentSecs;
+        } else {
+          nextEventName = "London Open";
+          diffSecs = (86400 - currentSecs) + 10800;
+        }
+      }
+
+      const hours = String(Math.floor(diffSecs / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((diffSecs % 3600) / 60)).padStart(2, '0');
+      const secs = String(diffSecs % 60).padStart(2, '0');
+
+      const nameEl = document.getElementById('session-name');
+      const timeEl = document.getElementById('session-timer');
+      if (nameEl) nameEl.textContent = nextEventName;
+      if (timeEl) timeEl.textContent = `${hours}:${mins}:${secs}`;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  function initChecklist() {
+    const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+    const statusEl = document.getElementById('stack-status');
+    const resetBtn = document.getElementById('stack-reset');
+    if (!checkboxes.length || !statusEl) return;
+
+    function evaluate() {
+      let checked = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) checked++;
+      });
+      const msgEl = statusEl.querySelector('.status-msg');
+      if (checked === 5) {
+        statusEl.className = 'stack-status ready';
+        if (msgEl) msgEl.innerHTML = 'VALIDATED &middot; EXECUTE SETUP';
+      } else {
+        statusEl.className = 'stack-status pending';
+        if (msgEl) msgEl.innerHTML = 'STAND DOWN &middot; <span id="stack-count">' + checked + '/5 CONFIRMED</span>';
+      }
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', evaluate));
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        checkboxes.forEach(cb => cb.checked = false);
+        evaluate();
+      });
+    }
+  }
+  initChecklist();
 </script>
 
 </body>
