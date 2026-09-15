@@ -4,7 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CB Trades</title>
+  <meta name="description" content="CB Trades — Charts, setups, and market execution. Follow @becharlesss and join the trading community.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CB Trades · Charts & Setups">
+  <meta property="og:description" content="Charts, setups, and the occasional green day. Explore trading playbook, community, and socials.">
+  <meta property="og:image" content="https://cb-trades-links.vercel.app/cb-photo.jpg">
+  <meta property="og:url" content="https://cb-trades-links.vercel.app">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CB Trades · Charts & Setups">
+  <meta name="twitter:description" content="Charts, setups, and the occasional green day. Follow @becharlesss and join the trading community.">
+  <meta name="twitter:image" content="https://cb-trades-links.vercel.app/cb-photo.jpg">
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
@@ -82,21 +92,49 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.14em;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--tick-up);
-    display: flex;
+    color: var(--text-dim);
+    display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
   }
 
-  .eyebrow::before {
-    content: "";
-    width: 6px;
-    height: 6px;
+  .status-dot {
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--tick-up);
+    flex: none;
+    transition: background 0.3s ease;
+  }
+
+  .status-dot.live {
+    background: var(--tick-up);
+    box-shadow: 0 0 0 0 rgba(46, 125, 107, 0.7);
+    animation: status-pulse 2s infinite;
+  }
+
+  .status-dot.pre {
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(168, 121, 26, 0.6);
+    animation: status-pulse 2s infinite;
+  }
+
+  .status-dot.closed {
+    background: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  @keyframes status-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(46, 125, 107, 0.5); }
+    70% { box-shadow: 0 0 0 6px rgba(46, 125, 107, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 125, 107, 0); }
   }
 
   h1 {
@@ -238,6 +276,99 @@
     .ticker-track { animation: none; }
   }
 
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .card-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .card-desc {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    border-radius: 9px;
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .card-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+
+  .card-link svg { width: 14px; height: 14px; }
+  .card-link:hover, .card-link:focus-visible {
+    transform: translateX(3px);
+    color: var(--text);
+  }
+
   footer {
     text-align: center;
     font-family: 'IBM Plex Mono', monospace;
@@ -254,7 +385,10 @@
     <div class="avatar-ring">
       <img src="cb-photo.jpg" alt="CB Trades" />
     </div>
-    <div class="eyebrow">Open · CB Trades</div>
+    <div class="eyebrow" id="market-status" aria-live="polite">
+      <span class="status-dot live"></span>
+      <span class="status-text">NY Market Open</span>
+    </div>
     <h1>CB Trades</h1>
     <p class="tagline">Charts, setups, and the occasional green day. Find everything on <span class="mono">@becharlesss</span> below.</p>
   </header>
@@ -313,6 +447,36 @@
     </a>
   </nav>
 
+  <section class="card" aria-labelledby="playbook-title">
+    <div class="card-eyebrow">Execution Playbook · Core Model</div>
+    <h2 id="playbook-title" class="card-title">iFVG &rarr; CISD &rarr; Second Entry</h2>
+    <p class="card-desc">Price raids key liquidity, inverts a Fair Value Gap, then displaces with a confirmed Change in State of Delivery. The mechanical second entry taps the fresh gap—trend confirmation without the guesswork.</p>
+    <div class="pill-row">
+      <span class="pill">NQ / ES Futures</span>
+      <span class="pill">1m / 30s Execution</span>
+      <span class="pill">&ge; 2R Target</span>
+      <span class="pill">Fixed Risk</span>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="video-title">
+    <div class="card-eyebrow">Featured Video · YouTube</div>
+    <h2 id="video-title" class="card-title">Trade Recaps & Setup Breakdowns</h2>
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed?listType=user_uploads&list=UCQJqIDpAbOSAOoklGhz2Img"
+        title="CB Trades YouTube Videos"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+    <a class="card-link" href="https://www.youtube.com/channel/UCQJqIDpAbOSAOoklGhz2Img" target="_blank" rel="noopener noreferrer">
+      <span>Watch on YouTube</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </section>
+
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
       <span>TIKTOK <b>@becharlesss</b></span>
@@ -328,6 +492,54 @@
 
   <footer>CB TRADES &middot; LINKS</footer>
 </div>
+
+<script>
+  function updateMarketStatus() {
+    try {
+      const now = new Date();
+      const nyString = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+      const nyDate = new Date(nyString);
+      const day = nyDate.getDay();
+      const hours = nyDate.getHours();
+      const minutes = nyDate.getMinutes();
+      const timeNum = hours * 60 + minutes;
+
+      const dot = document.querySelector('.status-dot');
+      const text = document.querySelector('.status-text');
+      if (!dot || !text) return;
+
+      if (day === 6 || (day === 0 && timeNum < 18 * 60)) {
+        dot.className = 'status-dot closed';
+        text.textContent = 'Market Closed · Weekend Prep';
+        return;
+      }
+
+      if (day === 0 && timeNum >= 18 * 60) {
+        dot.className = 'status-dot live';
+        text.textContent = 'Globex Open · Futures Live';
+        return;
+      }
+
+      if (timeNum >= 570 && timeNum < 960) {
+        dot.className = 'status-dot live';
+        text.textContent = 'Market Open · NY Regular';
+      } else if (timeNum >= 240 && timeNum < 570) {
+        dot.className = 'status-dot pre';
+        text.textContent = 'Pre-Market · NY AM Prep';
+      } else if (timeNum >= 960 && timeNum < 1200) {
+        dot.className = 'status-dot pre';
+        text.textContent = 'After-Hours · NY Session';
+      } else {
+        dot.className = 'status-dot live';
+        text.textContent = 'Globex Open · Overnight';
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  updateMarketStatus();
+  setInterval(updateMarketStatus, 30000);
+</script>
 
 </body>
 </html>
