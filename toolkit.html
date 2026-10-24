@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free NQ/ES Prop Firm Drawdown Calculator &amp; ICT iFVG + CISD Pine Script v5 Indicator | CB Trades</title>
+  <meta name="description" content="Free interactive NQ/MNQ Prop Firm Drawdown &amp; Pass Calculator (Topstep, Apex, MyFundedFutures 50K/100K/150K) + Free 1-Click Copy of the CB Trades iFVG + CISD Second-Entry TradingView Pine Script v5 Indicator.">
+  <meta name="keywords" content="NQ prop firm calculator, Topstep 50k contract size calculator, Apex drawdown calculator MNQ, ICT iFVG Pine Script v5, CISD Change in State of Delivery indicator TradingView, NQ futures position size calculator, CB Trades, VantageX">
+  <link rel="canonical" href="https://cb-trades-links.vercel.app/toolkit.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CB Trades · Free NQ Prop Firm Calculator &amp; iFVG + CISD Pine Script v5">
+  <meta property="og:description" content="Calculate exact MNQ/NQ contract sizing to pass Topstep, Apex &amp; MFFU evaluations + copy the exact CB Trades iFVG + CISD Second-Entry Pine Script v5 indicator for TradingView.">
+  <meta property="og:image" content="https://cb-trades-links.vercel.app/cb-photo.jpg">
+  <meta property="og:url" content="https://cb-trades-links.vercel.app/toolkit.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CB Trades · Free NQ Prop Calculator &amp; iFVG + CISD Indicator">
+  <meta name="twitter:description" content="Free Prop Firm Pass Calculator (Topstep, Apex, MFFU) + 1-Click Copy of the CB Trades iFVG + CISD Pine Script v5 Indicator.">
+  <meta name="twitter:image" content="https://cb-trades-links.vercel.app/cb-photo.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CB Trades NQ/ES Prop Firm Calculator & iFVG + CISD Pine Script v5 Toolkit",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web, TradingView",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Charles Burgess",
+      "url": "https://cb-trades-links.vercel.app/"
+    },
+    "description": "Interactive futures prop firm drawdown and contract calculator for Topstep, Apex, and MyFundedFutures (50K, 100K, 150K) plus free institutional iFVG + CISD Second-Entry Pine Script v5 indicator for TradingView."
+  }
+  </script>
+
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #E3E6C9;
+    --surface: #F1F3DE;
+    --surface-hover: #D9DCB8;
+    --surface-bright: #FAFBF3;
+    --text: #22261A;
+    --text-dim: #5F6350;
+    --accent: #A8791A;
+    --accent-ink: #FFFFFF;
+    --tick-up: #2E7D6B;
+    --danger: #B33939;
+    --purple: #6A4BC4;
+    --border: #C6CB9F;
+    --shadow: 0 2px 10px rgba(34,38,26,0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px 72px;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.15s ease;
+  }
+
+  .back-link:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent);
+  }
+
+  .nav-cta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: var(--tick-up);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: all 0.15s ease;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent);
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--tick-up);
+    box-shadow: 0 0 0 0 rgba(46, 125, 107, 0.7);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(46, 125, 107, 0.6); }
+    70% { box-shadow: 0 0 0 6px rgba(46, 125, 107, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 125, 107, 0); }
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(30px, 6vw, 44px);
+    line-height: 1.08;
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 15.5px;
+    line-height: 1.55;
+    max-width: 58ch;
+    margin: 0;
+  }
+
+  .quick-jump {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .jump-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+  }
+
+  .jump-pill:hover {
+    border-color: var(--accent);
+    background: var(--surface-hover);
+    transform: translateY(-1px);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card.featured::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--tick-up), var(--accent));
+  }
+
+  .card-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--text);
+  }
+
+  .card-desc {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--text-dim);
+  }
+
+  /* Prop Firm Calculator Styles */
+  .selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .selector-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .btn-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .btn-group-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  @media (max-width: 540px) {
+    .btn-group-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .sel-btn {
+    background: var(--surface-bright);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-align: center;
+  }
+
+  .sel-btn span.sub {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .sel-btn:hover {
+    border-color: var(--accent);
+    background: #fff;
+  }
+
+  .sel-btn.active {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+    font-weight: 600;
+  }
+
+  .sel-btn.active span.sub {
+    color: var(--border);
+  }
+
+  .inputs-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 560px) {
+    .inputs-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--surface-bright);
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .input-box label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .input-box input, .input-box select {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    outline: none;
+    width: 100%;
+  }
+
+  .input-box input:focus, .input-box select:focus {
+    border-color: var(--accent);
+  }
+
+  .results-dashboard {
+    background: var(--surface-bright);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media (min-width: 560px) {
+    .kpi-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .kpi-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .kpi-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .kpi-val {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .kpi-val.green { color: var(--tick-up); }
+  .kpi-val.gold { color: var(--accent); }
+  .kpi-val.red { color: var(--danger); }
+
+  .kpi-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-dim);
+  }
+
+  .verdict-banner {
+    background: var(--bg);
+    border-left: 4px solid var(--tick-up);
+    border-radius: 6px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .verdict-banner.warn {
+    border-left-color: var(--danger);
+    background: rgba(179, 57, 57, 0.08);
+  }
+
+  /* Pine Script Section */
+  .step-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 600px) {
+    .step-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-box {
+    background: var(--surface-bright);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .step-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 9px;
+    border-radius: 5px;
+    background: rgba(168, 121, 26, 0.15);
+    color: var(--accent);
+    width: fit-content;
+  }
+
+  .step-badge.step2 {
+    background: rgba(46, 125, 107, 0.15);
+    color: var(--tick-up);
+  }
+
+  .step-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    margin: 0;
+    color: var(--text);
+  }
+
+  .step-box p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-dim);
+  }
+
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 13px 18px;
+    border-radius: 9px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s ease;
+    width: 100%;
+  }
+
+  .btn-action.gold {
+    background: var(--accent);
+    color: #FFFFFF;
+    box-shadow: 0 3px 10px rgba(168, 121, 26, 0.25);
+  }
+
+  .btn-action.gold:hover {
+    background: #8F6513;
+    transform: translateY(-1px);
+  }
+
+  .btn-action.dark {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  .btn-action.dark:hover {
+    background: var(--tick-up);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+  }
+
+  .feature-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .f-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    padding: 5px 11px;
+    border-radius: 6px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .code-wrapper {
+    background: #1B1E16;
+    color: #E3E6C9;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .code-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #25291E;
+    border-bottom: 1px solid rgba(198, 203, 159, 0.2);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+  }
+
+  .code-topbar-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .mini-btn {
+    background: var(--tick-up);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .mini-btn.secondary {
+    background: rgba(255,255,255,0.12);
+    color: #E3E6C9;
+  }
+
+  .mini-btn:hover {
+    opacity: 0.9;
+  }
+
+  pre.pine-code {
+    margin: 0;
+    padding: 16px;
+    max-height: 320px;
+    overflow-y: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.5;
+    white-space: pre;
+    overflow-x: auto;
+    color: #D9E0C3;
+  }
+
+  .install-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  @media (max-width: 560px) {
+    .install-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .inst-card {
+    background: var(--surface-bright);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 12px;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .inst-card strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  footer {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <nav class="top-nav" aria-label="Toolkit Navigation">
+    <a class="back-link" href="index.html">&larr; Back to CB Trades Hub</a>
+    <a class="nav-cta" href="https://www.tradingview.com/?aff_id=1171102&aff_sub=pine_toolkit&source=CB+trades+" target="_blank" rel="noopener noreferrer">Claim $15 TradingView Partner Credit &rarr;</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">
+      <span class="pulse-dot"></span>
+      <span>CB Trades Execution Toolkit &middot; Free Institutional Access</span>
+    </div>
+    <h1>NQ/ES Prop Firm Calculator &amp; iFVG + CISD Indicator</h1>
+    <p class="subtitle">Size your MNQ &amp; NQ contracts mathematically for Topstep, Apex, and MyFundedFutures—and install the exact Pine Script v5 indicator Charles uses for NY AM &amp; Asia Open second-entry executions.</p>
+    <div class="quick-jump">
+      <a class="jump-pill" href="#prop-calculator">🛡️ 1. Prop Firm Pass Calculator</a>
+      <a class="jump-pill" href="#pine-indicator">⚡ 2. Free iFVG + CISD Pine Script v5</a>
+      <a class="jump-pill" href="#cme-setup">📊 3. CME Real-Time Chart Setup ($15 Off)</a>
+    </div>
+  </header>
+
+  <!-- SECTION 1: PROP FIRM CALCULATOR -->
+  <section class="card featured" id="prop-calculator" aria-labelledby="calc-heading">
+    <div>
+      <div class="card-eyebrow">Tool 01 &middot; Mathematical Survival &amp; Sizing</div>
+      <h2 id="calc-heading" class="card-title">Prop Firm Drawdown &amp; Combine Pass Calculator</h2>
+      <p class="card-desc">The #1 reason traders fail 50K–150K prop evaluations isn&rsquo;t bad direction—it&rsquo;s oversizing full NQ contracts on a 10–15 point stop and blowing the trailing drawdown in 3 trades. Select your firm and account below:</p>
+    </div>
+
+    <div class="selector-group">
+      <span class="selector-label">1. Select Prop Firm</span>
+      <div class="btn-group" id="firm-group">
+        <button type="button" class="sel-btn active" data-firm="topstep">
+          <span>Topstep</span>
+          <span class="sub">EOD Drawdown</span>
+        </button>
+        <button type="button" class="sel-btn" data-firm="apex">
+          <span>Apex Trader</span>
+          <span class="sub">Trailing Drawdown</span>
+        </button>
+        <button type="button" class="sel-btn" data-firm="mffu">
+          <span>MyFundedFutures</span>
+          <span class="sub">EOD Drawdown</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="selector-group">
+      <span class="selector-label">2. Select Account Size</span>
+      <div class="btn-group" id="size-group">
+        <button type="button" class="sel-btn active" data-size="50k">
+          <span>$50,000</span>
+          <span class="sub" id="sub-50k">$3K Goal · $2K Max DD</span>
+        </button>
+        <button type="button" class="sel-btn" data-size="100k">
+          <span>$100,000</span>
+          <span class="sub" id="sub-100k">$6K Goal · $3K Max DD</span>
+        </button>
+        <button type="button" class="sel-btn" data-size="150k">
+          <span>$150,000</span>
+          <span class="sub" id="sub-150k">$9K Goal · $4.5K Max DD</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="selector-group">
+      <span class="selector-label">3. Select CME Futures Instrument</span>
+      <div class="btn-group-4" id="inst-group">
+        <button type="button" class="sel-btn active" data-inst="MNQ" data-pt="2">
+          <span>MNQ (Micro)</span>
+          <span class="sub">$2.00 / point</span>
+        </button>
+        <button type="button" class="sel-btn" data-inst="NQ" data-pt="20">
+          <span>NQ (E-Mini)</span>
+          <span class="sub">$20.00 / point</span>
+        </button>
+        <button type="button" class="sel-btn" data-inst="MES" data-pt="5">
+          <span>MES (Micro)</span>
+          <span class="sub">$5.00 / point</span>
+        </button>
+        <button type="button" class="sel-btn" data-inst="ES" data-pt="50">
+          <span>ES (E-Mini)</span>
+          <span class="sub">$50.00 / point</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="inputs-row">
+      <div class="input-box">
+        <label for="stop-pts">Stop Loss Distance (Points)</label>
+        <input type="number" id="stop-pts" value="12" min="2" max="100" step="0.5">
+      </div>
+      <div class="input-box">
+        <label for="risk-usd">Risk Per Trade ($ USD)</label>
+        <input type="number" id="risk-usd" value="250" min="25" max="2500" step="25">
+      </div>
+      <div class="input-box">
+        <label for="rr-select">Target Payoff Ratio (R:R)</label>
+        <select id="rr-select">
+          <option value="2" selected>1:2 R:R (Standard A+)</option>
+          <option value="3">1:3 R:R (Runner Expansion)</option>
+          <option value="1.5">1:1.5 R:R (Scalp)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-dashboard" aria-live="polite">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-lbl">Exact Position Size</span>
+          <span class="kpi-val gold" id="out-contracts">10 MNQ</span>
+          <span class="kpi-sub" id="out-actual-risk">$240.00 actual risk/trade</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-lbl">Target Profit / Win</span>
+          <span class="kpi-val green" id="out-win-usd">+$480.00</span>
+          <span class="kpi-sub" id="out-win-pts">+24.0 pts (2.0R)</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-lbl">Drawdown Survival</span>
+          <span class="kpi-val" id="out-survival">8.3 Losses</span>
+          <span class="kpi-sub" id="out-dd-limit">in a row before $2,000 limit</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-lbl">Wins to Pass Combine</span>
+          <span class="kpi-val green" id="out-wins-pass">6.3 Net Wins</span>
+          <span class="kpi-sub" id="out-days-pass">~10 trading days (1 setup/day)</span>
+        </div>
+      </div>
+
+      <div class="verdict-banner" id="calc-verdict">
+        <strong>✅ CB Risk Officer Verdict: Optimal Prop Sizing</strong>
+        <span id="calc-verdict-text">Trading 10 MNQ with a 12-point stop risks $240 per setup (12.0% of your $2,000 drawdown buffer). Enforce a hard 2-loss daily stop (-$480 max/day) and you need 7 clean 2R wins to pass your $50K evaluation.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PINE SCRIPT INDICATOR -->
+  <section class="card featured" id="pine-indicator" aria-labelledby="pine-heading">
+    <div>
+      <div class="card-eyebrow">Tool 02 &middot; Free TradingView Pine Script v5 Indicator</div>
+      <h2 id="pine-heading" class="card-title">CB Trades · iFVG + CISD Second-Entry Engine [v5]</h2>
+      <p class="card-desc">Stop front-running unconfirmed candles. This open-source Pine Script v5 indicator automatically maps Charles&rsquo;s exact NY AM &amp; Asia Open session boxes, Previous Day High/Low/EQ, Fair Value Gaps, Purple Inverted FVGs (iFVG), and post-sweep CISD `2ND ENTRY` triggers with 2R/3R targets.</p>
+    </div>
+
+    <div class="feature-pills">
+      <span class="f-pill">✓ NY AM (09:30–11:00) &amp; Asia Boxes</span>
+      <span class="f-pill">✓ Auto PDH / PDL / 50% EQ</span>
+      <span class="f-pill">✓ Purple iFVG Retest Zones</span>
+      <span class="f-pill">✓ CISD 2nd Entry Labels + 2R/3R Lines</span>
+      <span class="f-pill">✓ Built-In TradingView Alerts</span>
+    </div>
+
+    <div class="step-grid" id="cme-setup">
+      <div class="step-box">
+        <div>
+          <span class="step-badge">Step 01 &middot; Chart Platform &amp; $15 Bonus</span>
+          <h3 style="margin-top:8px;">Open TradingView ($15 Partner Credit)</h3>
+          <p style="margin-top:6px;">iFVG &amp; CISD entries run on 30-second and 1-minute NQ/ES charts. Use the official CB Trades Partner link below to open TradingView and claim <b>$15 towards your plan + CME real-time data</b>.</p>
+        </div>
+        <a class="btn-action gold" href="https://www.tradingview.com/?aff_id=1171102&aff_sub=pine_toolkit&source=CB+trades+" target="_blank" rel="noopener noreferrer">
+          <span>1. Open TradingView ($15 Off) &rarr;</span>
+        </a>
+      </div>
+
+      <div class="step-box">
+        <div>
+          <span class="step-badge step2">Step 02 &middot; Instant Copy &amp; Paste</span>
+          <h3 style="margin-top:8px;">Copy Pine Script v5 Source Code</h3>
+          <p style="margin-top:6px;">Click below to copy the complete, verified v5 script to your clipboard. In TradingView, open the bottom <b>Pine Editor</b> tab, paste the code, and click <b>Add to Chart</b>.</p>
+        </div>
+        <button type="button" class="btn-action dark" id="copy-pine-main-btn">
+          <span id="copy-main-text">📋 2. Copy Full Pine Script v5 Code</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="install-steps">
+      <div class="inst-card">
+        <strong>01. Open Pine Editor</strong>
+        Launch your NQ1! or MNQ1! chart on <a href="https://www.tradingview.com/?aff_id=1171102&aff_sub=pine_toolkit&source=CB+trades+" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">TradingView</a> and click <b>Pine Editor</b> on the bottom toolbar.
+      </div>
+      <div class="inst-card">
+        <strong>02. Paste &amp; Save</strong>
+        Delete the default template, paste the CB Trades iFVG + CISD code below, and press <b>Save</b>.
+      </div>
+      <div class="inst-card">
+        <strong>03. Add to Chart &amp; Set Alerts</strong>
+        Click <b>Add to chart</b>. Set timeframe to <b>1m</b> or <b>30s</b> (with TradingView Plus/Essential) and enable alerts.
+      </div>
+    </div>
+
+    <div class="code-wrapper">
+      <div class="code-topbar">
+        <span>📄 cb_ifvg_cisd_indicator.pine (Pine Script™ v5 · 160 Lines)</span>
+        <div class="code-topbar-actions">
+          <a class="mini-btn secondary" href="cb_ifvg_cisd_indicator.pine" download="cb_ifvg_cisd_indicator.pine">⬇️ Download .pine</a>
+          <button type="button" class="mini-btn" id="copy-pine-top-btn">📋 Copy Code</button>
+        </div>
+      </div>
+      <pre class="pine-code" id="pine-source-code">// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © CB Trades (@becharlesss / @CharlestradesNQ) — VantageX Institutional Execution Engine
+// Official TradingView Partner Setup: https://www.tradingview.com/?aff_id=1171102&amp;aff_sub=pine_toolkit&amp;source=CB+trades+
+
+//@version=5
+indicator("CB Trades · NQ/ES iFVG + CISD Second-Entry Engine [VantageX]", shorttitle="CB · iFVG + CISD", overlay=true, max_boxes_count=500, max_lines_count=500, max_labels_count=500)
+
+// ============================================================================
+// 1. INPUTS &amp; CONFIGURATION
+// ============================================================================
+grp_sess = "01 · Session Killzones (America/New_York)"
+show_ny   = input.bool(true, "Show NY AM Open (09:30–11:00 EST)", group=grp_sess)
+ny_sess   = input.session("0930-1100", "NY AM Window", group=grp_sess)
+show_asia = input.bool(true, "Show Asia Open (18:00–22:00 EST)", group=grp_sess)
+asia_sess = input.session("1800-2200", "Asia Open Window", group=grp_sess)
+tz        = input.string("America/New_York", "Session Timezone", options=["America/New_York", "America/Chicago", "UTC"], group=grp_sess)
+
+grp_htf  = "02 · Key Daily Levels (PDH / PDL / EQ)"
+show_pd  = input.bool(true, "Plot Previous Day High (PDH) &amp; Low (PDL)", group=grp_htf)
+show_eq  = input.bool(true, "Plot Previous Day 50% Equilibrium (EQ)", group=grp_htf)
+
+grp_fvg  = "03 · Fair Value Gaps (FVG) &amp; Inverted FVG (iFVG)"
+show_fvg  = input.bool(true, "Detect Bullish &amp; Bearish FVGs", group=grp_fvg)
+show_ifvg = input.bool(true, "Highlight Inverted FVGs (iFVG Retest Zones)", group=grp_fvg)
+fvg_ext   = input.int(12, "FVG Box Extension (Bars)", minval=3, maxval=60, group=grp_fvg)
+min_fvg_t = input.float(2.0, "Minimum FVG Size (Ticks)", minval=0.0, step=1.0, group=grp_fvg)
+
+grp_cisd = "04 · Liquidity Sweep + CISD (2nd Entry Engine)"
+show_cisd  = input.bool(true, "Plot 2ND ENTRY LONG / SHORT Signals", group=grp_cisd)
+show_rr    = input.bool(true, "Plot Auto Stop Loss, 2R &amp; 3R Target Lines", group=grp_cisd)
+swp_len    = input.int(10, "Liquidity Swing Lookback (Bars)", minval=3, maxval=50, group=grp_cisd)
+
+grp_col  = "05 · CB Trades Stealth Olive &amp; Institutional Palette"
+col_olive   = input.color(color.new(#A8791A, 0), "CB Gold / Equilibrium Accent", group=grp_col)
+col_bull    = input.color(color.new(#2E7D6B, 0), "Bullish Emerald", group=grp_col)
+col_bear    = input.color(color.new(#B33939, 0), "Bearish Crimson", group=grp_col)
+col_ifvg    = input.color(color.new(#8E6CE6, 75), "Inverted FVG (iFVG Purple Zone)", group=grp_col)
+
+// ============================================================================
+// 2. PREVIOUS DAY HIGH (PDH), LOW (PDL) &amp; EQUILIBRIUM (EQ 50%)
+// ============================================================================
+[pdh, pdl] = request.security(syminfo.tickerid, "D", [high[1], low[1]], lookahead=barmerge.lookahead_on)
+pdeq       = (pdh + pdl) * 0.5
+
+plot(show_pd ? pdh : na, "PDH (Buy-Side Liquidity)", color=color.new(#B33939, 15), linewidth=2, style=plot.style_linebr)
+plot(show_pd ? pdl : na, "PDL (Sell-Side Liquidity)", color=color.new(#2E7D6B, 15), linewidth=2, style=plot.style_linebr)
+plot(show_eq ? pdeq : na, "EQ (50% Balance)", color=color.new(#A8791A, 20), linewidth=1, style=plot.style_circles)
+
+var label lbl_pdh = na
+var label lbl_pdl = na
+var label lbl_eq  = na
+
+if barstate.islast
+    if show_pd and not na(pdh)
+        label.delete(lbl_pdh)
+        label.delete(lbl_pdl)
+        lbl_pdh := label.new(bar_index + 3, pdh, "PDH · BSL (" + str.tostring(pdh, format.mintick) + ")", style=label.style_label_left, color=color.new(#B33939, 15), textcolor=color.white, size=size.small)
+        lbl_pdl := label.new(bar_index + 3, pdl, "PDL · SSL (" + str.tostring(pdl, format.mintick) + ")", style=label.style_label_left, color=color.new(#2E7D6B, 15), textcolor=color.white, size=size.small)
+    if show_eq and not na(pdeq)
+        label.delete(lbl_eq)
+        lbl_eq := label.new(bar_index + 3, pdeq, "EQ 50% (" + str.tostring(pdeq, format.mintick) + ")", style=label.style_label_left, color=color.new(#A8791A, 15), textcolor=color.white, size=size.small)
+
+// ============================================================================
+// 3. NY AM OPEN (09:30–11:00 EST) &amp; ASIA OPEN (18:00–22:00 EST) SESSIONS
+// ============================================================================
+in_ny   = not na(time(timeframe.period, ny_sess, tz))
+in_asia = not na(time(timeframe.period, asia_sess, tz))
+
+var float ny_hi = na
+var float ny_lo = na
+var int   ny_start = na
+var box   ny_box = na
+
+if in_ny and not in_ny[1]
+    ny_hi    := high
+    ny_lo    := low
+    ny_start := bar_index
+    if show_ny
+        ny_box := box.new(ny_start, ny_hi, bar_index, ny_lo, border_color=color.new(#A8791A, 35), bgcolor=color.new(#A8791A, 90), text="NY AM OPEN", text_color=color.new(#A8791A, 20), text_size=size.tiny)
+else if in_ny
+    ny_hi := math.max(nz(ny_hi, high), high)
+    ny_lo := math.min(nz(ny_lo, low), low)
+    if show_ny and not na(ny_box)
+        box.set_top(ny_box, ny_hi)
+        box.set_bottom(ny_box, ny_lo)
+        box.set_right(ny_box, bar_index)
+
+var float asia_hi = na
+var float asia_lo = na
+var int   asia_start = na
+var box   asia_box = na
+
+if in_asia and not in_asia[1]
+    asia_hi    := high
+    asia_lo    := low
+    asia_start := bar_index
+    if show_asia
+        asia_box := box.new(asia_start, asia_hi, bar_index, asia_lo, border_color=color.new(#2E7D6B, 40), bgcolor=color.new(#2E7D6B, 92), text="ASIA OPEN", text_color=color.new(#2E7D6B, 20), text_size=size.tiny)
+else if in_asia
+    asia_hi := math.max(nz(asia_hi, high), high)
+    asia_lo := math.min(nz(asia_lo, low), low)
+    if show_asia and not na(asia_box)
+        box.set_top(asia_box, asia_hi)
+        box.set_bottom(asia_box, asia_lo)
+        box.set_right(asia_box, bar_index)
+
+// ============================================================================
+// 4. FAIR VALUE GAPS (FVG) &amp; INVERTED FAIR VALUE GAPS (iFVG)
+// ============================================================================
+min_gap = min_fvg_t * syminfo.mintick
+bull_fvg = low > high[2] and (low - high[2]) >= min_gap and close[1] > open[1]
+bear_fvg = high < low[2] and (low[2] - high) >= min_gap and close[1] < open[1]
+
+var float last_bull_fvg_top = na
+var float last_bull_fvg_bot = na
+var int   last_bull_fvg_bar = na
+var bool  last_bull_inverted = false
+
+var float last_bear_fvg_top = na
+var float last_bear_fvg_bot = na
+var int   last_bear_fvg_bar = na
+var bool  last_bear_inverted = false
+
+if bull_fvg
+    last_bull_fvg_top  := low
+    last_bull_fvg_bot  := high[2]
+    last_bull_fvg_bar  := bar_index - 1
+    last_bull_inverted := false
+    if show_fvg
+        box.new(bar_index - 2, low, bar_index + fvg_ext, high[2], border_color=color.new(#2E7D6B, 45), bgcolor=color.new(#2E7D6B, 85), text="FVG (+)", text_color=color.new(#2E7D6B, 15), text_size=size.tiny)
+
+if bear_fvg
+    last_bear_fvg_top  := low[2]
+    last_bear_fvg_bot  := high
+    last_bear_fvg_bar  := bar_index - 1
+    last_bear_inverted := false
+    if show_fvg
+        box.new(bar_index - 2, low[2], bar_index + fvg_ext, high, border_color=color.new(#B33939, 45), bgcolor=color.new(#B33939, 85), text="FVG (-)", text_color=color.new(#B33939, 15), text_size=size.tiny)
+
+// Detect iFVG (Inversion of recent opposing FVG within 25 bars)
+bull_ifvg_trigger = not na(last_bear_fvg_top) and not last_bear_inverted and (bar_index - last_bear_fvg_bar <= 25) and close > last_bear_fvg_top and close[1] <= last_bear_fvg_top
+bear_ifvg_trigger = not na(last_bull_fvg_bot) and not last_bull_inverted and (bar_index - last_bull_fvg_bar <= 25) and close < last_bull_fvg_bot and close[1] >= last_bull_fvg_bot
+
+if bull_ifvg_trigger
+    last_bear_inverted := true
+    if show_ifvg
+        box.new(bar_index, last_bear_fvg_top, bar_index + fvg_ext, last_bear_fvg_bot, border_color=color.new(#8E6CE6, 20), bgcolor=col_ifvg, text="iFVG BULL RETEST", text_color=color.white, text_size=size.tiny)
+
+if bear_ifvg_trigger
+    last_bull_inverted := true
+    if show_ifvg
+        box.new(bar_index, last_bull_fvg_top, bar_index + fvg_ext, last_bull_fvg_bot, border_color=color.new(#8E6CE6, 20), bgcolor=col_ifvg, text="iFVG BEAR RETEST", text_color=color.white, text_size=size.tiny)
+
+// ============================================================================
+// 5. LIQUIDITY SWEEP + CISD (CHANGE IN STATE OF DELIVERY) 2ND ENTRY ENGINE
+// ============================================================================
+prev_swing_hi = ta.highest(high, swp_len)[1]
+prev_swing_lo = ta.lowest(low, swp_len)[1]
+
+// Sweep condition: recent wick probed below SSL or above BSL within last 4 bars
+recent_ssl_sweep = ta.lowest(low, 4) < ta.lowest(low, swp_len)[4] or (not na(pdl) and low < pdl and close > pdl)
+recent_bsl_sweep = ta.highest(high, 4) > ta.highest(high, swp_len)[4] or (not na(pdh) and high > pdh and close < pdh)
+
+// CISD + iFVG Second Entry Confirmation
+cisd_long  = show_cisd and bull_ifvg_trigger and (recent_ssl_sweep or low[1] < prev_swing_lo)
+cisd_short = show_cisd and bear_ifvg_trigger and (recent_bsl_sweep or high[1] > prev_swing_hi)
+
+if cisd_long
+    stop_px = math.min(low, math.min(low[1], low[2])) - (syminfo.mintick * 4)
+    risk_pt = math.max(close - stop_px, syminfo.mintick * 10)
+    tp_2r   = close + (risk_pt * 2.0)
+    tp_3r   = close + (risk_pt * 3.0)
+    label.new(bar_index, low, "2ND ENTRY LONG\nCISD + iFVG", style=label.style_label_up, color=col_bull, textcolor=color.white, size=size.small)
+    if show_rr
+        line.new(bar_index, stop_px, bar_index + 10, stop_px, color=col_bear, width=2, style=line.style_solid)
+        line.new(bar_index, tp_2r, bar_index + 10, tp_2r, color=col_olive, width=1, style=line.style_dashed)
+        line.new(bar_index, tp_3r, bar_index + 10, tp_3r, color=col_bull, width=2, style=line.style_solid)
+        label.new(bar_index + 10, tp_2r, "2R (" + str.tostring(tp_2r, format.mintick) + ")", style=label.style_label_left, color=col_olive, textcolor=color.white, size=size.tiny)
+        label.new(bar_index + 10, tp_3r, "3R (" + str.tostring(tp_3r, format.mintick) + ")", style=label.style_label_left, color=col_bull, textcolor=color.white, size=size.tiny)
+
+if cisd_short
+    stop_px = math.max(high, math.max(high[1], high[2])) + (syminfo.mintick * 4)
+    risk_pt = math.max(stop_px - close, syminfo.mintick * 10)
+    tp_2r   = close - (risk_pt * 2.0)
+    tp_3r   = close - (risk_pt * 3.0)
+    label.new(bar_index, high, "2ND ENTRY SHORT\nCISD + iFVG", style=label.style_label_down, color=col_bear, textcolor=color.white, size=size.small)
+    if show_rr
+        line.new(bar_index, stop_px, bar_index + 10, stop_px, color=col_bear, width=2, style=line.style_solid)
+        line.new(bar_index, tp_2r, bar_index + 10, tp_2r, color=col_olive, width=1, style=line.style_dashed)
+        line.new(bar_index, tp_3r, bar_index + 10, tp_3r, color=col_bull, width=2, style=line.style_solid)
+        label.new(bar_index + 10, tp_2r, "2R (" + str.tostring(tp_2r, format.mintick) + ")", style=label.style_label_left, color=col_olive, textcolor=color.white, size=size.tiny)
+        label.new(bar_index + 10, tp_3r, "3R (" + str.tostring(tp_3r, format.mintick) + ")", style=label.style_label_left, color=col_bull, textcolor=color.white, size=size.tiny)
+
+// ============================================================================
+// 6. ALERTS FOR AUTOMATED DESK NOTIFICATIONS
+// ============================================================================
+alertcondition(bull_ifvg_trigger, title="CB Bullish iFVG Inversion", message="CB Trades: Bullish iFVG Inversion detected on {{ticker}} ({{interval}}). Wait for retest.")
+alertcondition(bear_ifvg_trigger, title="CB Bearish iFVG Inversion", message="CB Trades: Bearish iFVG Inversion detected on {{ticker}} ({{interval}}). Wait for retest.")
+alertcondition(cisd_long, title="CB 2ND ENTRY LONG (CISD + iFVG)", message="CB Trades: 2ND ENTRY LONG confirmed after liquidity sweep on {{ticker}} ({{interval}}) @ {{close}}")
+alertcondition(cisd_short, title="CB 2ND ENTRY SHORT (CISD + iFVG)", message="CB Trades: 2ND ENTRY SHORT confirmed after liquidity sweep on {{ticker}} ({{interval}}) @ {{close}}")</pre>
+    </div>
+  </section>
+
+  <!-- SECTION 3: WHY TRADINGVIEW ESSENTIAL/PLUS + VANTAGEX -->
+  <section class="card" aria-labelledby="stack-heading">
+    <div class="card-eyebrow">Tool 03 &middot; Execution Infrastructure</div>
+    <h2 id="stack-heading" class="card-title">The Complete CB Trades Execution Stack</h2>
+    <p class="card-desc">Every morning before the 9:30 AM EST bell and 6:00 PM EST Asia Open, we map liquidity pools on TradingView and execute inside the VantageX floor.</p>
+    <div class="step-grid">
+      <div class="step-box">
+        <div>
+          <span class="step-badge">Official Charting Partner</span>
+          <h3 style="margin-top:8px;">TradingView ($15 Credit)</h3>
+          <p style="margin-top:6px;">Unlock sub-minute (30-second) charts, multi-monitor layouts, and bar-replay backtesting for NQ &amp; ES with our partner credit.</p>
+        </div>
+        <a class="btn-action gold" href="https://www.tradingview.com/?aff_id=1171102&aff_sub=pine_toolkit&source=CB+trades+" target="_blank" rel="noopener noreferrer">
+          <span>Claim $15 TradingView Bonus &rarr;</span>
+        </a>
+      </div>
+      <div class="step-box">
+        <div>
+          <span class="step-badge step2">Private Trading Floor</span>
+          <h3 style="margin-top:8px;">Enter VantageX Discord</h3>
+          <p style="margin-top:6px;">Daily marked NQ/ES key levels, live pre-market prep, full playbook rules, and post-session execution recaps.</p>
+        </div>
+        <a class="btn-action dark" href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer">
+          <span>Enter VantageX Floor &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>CB TRADES &middot; NQ &amp; ES FUTURES EXECUTION TOOLKIT</div>
+    <div><a href="index.html">Home Hub</a> &middot; <a href="https://www.tradingview.com/?aff_id=1171102&aff_sub=pine_toolkit&source=CB+trades+" target="_blank" rel="noopener noreferrer">TradingView $15 Partner Link</a> &middot; <a href="https://discord.gg/TkHuTMKVx" target="_blank" rel="noopener noreferrer">VantageX Discord</a></div>
+  </footer>
+</div>
+
+<script>
+(function() {
+  const propData = {
+    topstep: {
+      name: "Topstep",
+      ddType: "EOD Drawdown",
+      sizes: {
+        "50k":  { target: 3000, maxDD: 2000, dailyLoss: 1000, label: "$3K Goal · $2K Max DD" },
+        "100k": { target: 6000, maxDD: 3000, dailyLoss: 2000, label: "$6K Goal · $3K Max DD" },
+        "150k": { target: 9000, maxDD: 4500, dailyLoss: 3000, label: "$9K Goal · $4.5K Max DD" }
+      }
+    },
+    apex: {
+      name: "Apex Trader Funding",
+      ddType: "Intraday Trailing DD",
+      sizes: {
+        "50k":  { target: 3000, maxDD: 2500, dailyLoss: 1250, label: "$3K Goal · $2.5K Trail DD" },
+        "100k": { target: 6000, maxDD: 3000, dailyLoss: 1500, label: "$6K Goal · $3K Trail DD" },
+        "150k": { target: 9000, maxDD: 5000, dailyLoss: 2500, label: "$9K Goal · $5K Trail DD" }
+      }
+    },
+    mffu: {
+      name: "MyFundedFutures",
+      ddType: "EOD Drawdown",
+      sizes: {
+        "50k":  { target: 3000, maxDD: 2000, dailyLoss: 1000, label: "$3K Goal · $2K EOD DD" },
+        "100k": { target: 6000, maxDD: 3000, dailyLoss: 1500, label: "$6K Goal · $3K EOD DD" },
+        "150k": { target: 9000, maxDD: 4500, dailyLoss: 2250, label: "$9K Goal · $4.5K EOD DD" }
+      }
+    }
+  };
+
+  let state = {
+    firm: "topstep",
+    size: "50k",
+    inst: "MNQ",
+    ptVal: 2
+  };
+
+  const firmBtns = document.querySelectorAll('#firm-group .sel-btn');
+  const sizeBtns = document.querySelectorAll('#size-group .sel-btn');
+  const instBtns = document.querySelectorAll('#inst-group .sel-btn');
+  const stopInput = document.getElementById('stop-pts');
+  const riskInput = document.getElementById('risk-usd');
+  const rrSelect  = document.getElementById('rr-select');
+
+  function updateSizeLabels() {
+    const f = propData[state.firm];
+    document.getElementById('sub-50k').textContent  = f.sizes["50k"].label;
+    document.getElementById('sub-100k').textContent = f.sizes["100k"].label;
+    document.getElementById('sub-150k').textContent = f.sizes["150k"].label;
+  }
+
+  function calculate() {
+    const f = propData[state.firm];
+    const acct = f.sizes[state.size];
+    const stopPts = Math.max(1, parseFloat(stopInput.value) || 12);
+    const desiredRisk = Math.max(20, parseFloat(riskInput.value) || 250);
+    const rr = parseFloat(rrSelect.value) || 2;
+
+    const costPerContract = stopPts * state.ptVal;
+    const rawContracts = Math.floor(desiredRisk / costPerContract);
+
+    const outContracts = document.getElementById('out-contracts');
+    const outActualRisk = document.getElementById('out-actual-risk');
+    const outWinUsd = document.getElementById('out-win-usd');
+    const outWinPts = document.getElementById('out-win-pts');
+    const outSurvival = document.getElementById('out-survival');
+    const outDdLimit = document.getElementById('out-dd-limit');
+    const outWinsPass = document.getElementById('out-wins-pass');
+    const outDaysPass = document.getElementById('out-days-pass');
+    const verdictBox = document.getElementById('calc-verdict');
+    const verdictText = document.getElementById('calc-verdict-text');
+
+    if (rawContracts < 1) {
+      const microEquivalent = state.inst === "NQ" ? "MNQ" : (state.inst === "ES" ? "MES" : "Micro");
+      const microPt = state.inst === "NQ" ? 2 : 5;
+      const suggestedMicro = Math.max(1, Math.floor(desiredRisk / (stopPts * microPt)));
+      outContracts.textContent = `0 ${state.inst} (Oversized!)`;
+      outContracts.className = "kpi-val red";
+      outActualRisk.textContent = `1 ${state.inst} = $${costPerContract.toFixed(0)} risk (> $${desiredRisk})`;
+      outWinUsd.textContent = `Switch to ${suggestedMicro} ${microEquivalent}`;
+      outWinPts.textContent = `+${(stopPts * rr).toFixed(1)} pts (${rr}R)`;
+      outSurvival.textContent = `${(acct.maxDD / costPerContract).toFixed(1)} Losses`;
+      outDdLimit.textContent = `if forcing 1 ${state.inst} ($${acct.maxDD} DD)`;
+      outWinsPass.textContent = `Use ${microEquivalent}`;
+      outDaysPass.textContent = `Protect your drawdown buffer`;
+
+      verdictBox.className = "verdict-banner warn";
+      verdictBox.innerHTML = `<strong>⚠️ CB Risk Officer Alert: Full Contract Oversized!</strong><span>1 ${state.inst} with a ${stopPts}-point stop risks <b>$${costPerContract.toFixed(0)}</b>, which exceeds your $${desiredRisk} risk cap. Switch to <b>${suggestedMicro} ${microEquivalent}</b> ($${(suggestedMicro * stopPts * microPt).toFixed(0)} risk) so a single wick doesn't wreck your ${f.name} combine.</span>`;
+      return;
+    }
+
+    const actualRisk = rawContracts * costPerContract;
+    const winUsd = actualRisk * rr;
+    const winPts = stopPts * rr;
+    const lossesToBlow = acct.maxDD / actualRisk;
+    const winsToPass = acct.target / winUsd;
+    const estDays = Math.ceil(winsToPass * 1.45);
+    const ddPct = (actualRisk / acct.maxDD) * 100;
+
+    outContracts.textContent = `${rawContracts} ${state.inst}`;
+    outContracts.className = "kpi-val gold";
+    outActualRisk.textContent = `$${actualRisk.toFixed(0)} risk (${ddPct.toFixed(1)}% of DD)`;
+    outWinUsd.textContent = `+$${winUsd.toFixed(0)}`;
+    outWinPts.textContent = `+${winPts.toFixed(1)} pts (${rr}R target)`;
+    outSurvival.textContent = `${lossesToBlow.toFixed(1)} Losses`;
+    outDdLimit.textContent = `buffer before $${acct.maxDD.toLocaleString()} ${f.ddType}`;
+    outWinsPass.textContent = `${winsToPass.toFixed(1)} Net Wins`;
+    outDaysPass.textContent = `~${estDays} sessions at 1 setup/day`;
+
+    if (lossesToBlow < 5) {
+      verdictBox.className = "verdict-banner warn";
+      verdictBox.innerHTML = `<strong>⚠️ High Drawdown Velocity Warning (${ddPct.toFixed(1)}% of Buffer per Trade)</strong><span>Trading <b>${rawContracts} ${state.inst}</b> risks $${actualRisk.toFixed(0)} per trade—meaning <b>${Math.floor(lossesToBlow)} losses in a row</b> blows your entire $${acct.maxDD.toLocaleString()} ${f.name} account. Lower your risk per trade to $${Math.round(acct.maxDD / 8)} for an 8-loss cushion.</span>`;
+    } else {
+      verdictBox.className = "verdict-banner";
+      verdictBox.innerHTML = `<strong>✅ CB Risk Officer Verdict: Institutional Combine Sizing Locked</strong><span>Execute <b>${rawContracts} ${state.inst}</b> with a ${stopPts}-pt stop ($${actualRisk.toFixed(0)} risk = ${ddPct.toFixed(1)}% of your $${acct.maxDD.toLocaleString()} buffer). Enforce a strict 2-loss daily lockout (-$${(actualRisk * 2).toFixed(0)}/day) and you only need <b>${Math.ceil(winsToPass)} clean ${rr}R second-entry wins</b> to pass your $${state.size.toUpperCase()} ${f.name} evaluation.</span>`;
+    }
+  }
+
+  firmBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      firmBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.firm = btn.dataset.firm;
+      updateSizeLabels();
+      calculate();
+    });
+  });
+
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sizeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.size = btn.dataset.size;
+      if (state.size === "50k") riskInput.value = 250;
+      if (state.size === "100k") riskInput.value = 375;
+      if (state.size === "150k") riskInput.value = 500;
+      calculate();
+    });
+  });
+
+  instBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      instBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.inst = btn.dataset.inst;
+      state.ptVal = parseFloat(btn.dataset.pt);
+      calculate();
+    });
+  });
+
+  [stopInput, riskInput, rrSelect].forEach(el => {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  updateSizeLabels();
+  calculate();
+
+  // Copy Pine Script Logic
+  const pinePre = document.getElementById('pine-source-code');
+  const mainCopyBtn = document.getElementById('copy-pine-main-btn');
+  const mainCopyText = document.getElementById('copy-main-text');
+  const topCopyBtn = document.getElementById('copy-pine-top-btn');
+
+  function copyPineCode() {
+    const code = pinePre.textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      mainCopyText.textContent = "✅ COPIED TO CLIPBOARD! PASTE IN TRADINGVIEW PINE EDITOR";
+      topCopyBtn.textContent = "✅ Copied!";
+      setTimeout(() => {
+        mainCopyText.textContent = "📋 2. Copy Full Pine Script v5 Code";
+        topCopyBtn.textContent = "📋 Copy Code";
+      }, 3500);
+    });
+  }
+
+  if (mainCopyBtn) mainCopyBtn.addEventListener('click', copyPineCode);
+  if (topCopyBtn) topCopyBtn.addEventListener('click', copyPineCode);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © CB Trades (@becharlesss / @CharlestradesNQ) — VantageX Institutional Execution Engine
+// Official TradingView Partner Setup: https://www.tradingview.com/?aff_id=1171102&aff_sub=pine_toolkit&source=CB+trades+
+
+//@version=5
+indicator("CB Trades · NQ/ES iFVG + CISD Second-Entry Engine [VantageX]", shorttitle="CB · iFVG + CISD", overlay=true, max_boxes_count=500, max_lines_count=500, max_labels_count=500)
+
+// ============================================================================
+// 1. INPUTS & CONFIGURATION
+// ============================================================================
+grp_sess = "01 · Session Killzones (America/New_York)"
+show_ny   = input.bool(true, "Show NY AM Open (09:30–11:00 EST)", group=grp_sess)
+ny_sess   = input.session("0930-1100", "NY AM Window", group=grp_sess)
+show_asia = input.bool(true, "Show Asia Open (18:00–22:00 EST)", group=grp_sess)
+asia_sess = input.session("1800-2200", "Asia Open Window", group=grp_sess)
+tz        = input.string("America/New_York", "Session Timezone", options=["America/New_York", "America/Chicago", "UTC"], group=grp_sess)
+
+grp_htf  = "02 · Key Daily Levels (PDH / PDL / EQ)"
+show_pd  = input.bool(true, "Plot Previous Day High (PDH) & Low (PDL)", group=grp_htf)
+show_eq  = input.bool(true, "Plot Previous Day 50% Equilibrium (EQ)", group=grp_htf)
+
+grp_fvg  = "03 · Fair Value Gaps (FVG) & Inverted FVG (iFVG)"
+show_fvg  = input.bool(true, "Detect Bullish & Bearish FVGs", group=grp_fvg)
+show_ifvg = input.bool(true, "Highlight Inverted FVGs (iFVG Retest Zones)", group=grp_fvg)
+fvg_ext   = input.int(12, "FVG Box Extension (Bars)", minval=3, maxval=60, group=grp_fvg)
+min_fvg_t = input.float(2.0, "Minimum FVG Size (Ticks)", minval=0.0, step=1.0, group=grp_fvg)
+
+grp_cisd = "04 · Liquidity Sweep + CISD (2nd Entry Engine)"
+show_cisd  = input.bool(true, "Plot 2ND ENTRY LONG / SHORT Signals", group=grp_cisd)
+show_rr    = input.bool(true, "Plot Auto Stop Loss, 2R & 3R Target Lines", group=grp_cisd)
+swp_len    = input.int(10, "Liquidity Swing Lookback (Bars)", minval=3, maxval=50, group=grp_cisd)
+
+grp_col  = "05 · CB Trades Stealth Olive & Institutional Palette"
+col_olive   = input.color(color.new(#A8791A, 0), "CB Gold / Equilibrium Accent", group=grp_col)
+col_bull    = input.color(color.new(#2E7D6B, 0), "Bullish Emerald", group=grp_col)
+col_bear    = input.color(color.new(#B33939, 0), "Bearish Crimson", group=grp_col)
+col_ifvg    = input.color(color.new(#8E6CE6, 75), "Inverted FVG (iFVG Purple Zone)", group=grp_col)
+
+// ============================================================================
+// 2. PREVIOUS DAY HIGH (PDH), LOW (PDL) & EQUILIBRIUM (EQ 50%)
+// ============================================================================
+[pdh, pdl] = request.security(syminfo.tickerid, "D", [high[1], low[1]], lookahead=barmerge.lookahead_on)
+pdeq       = (pdh + pdl) * 0.5
+
+plot(show_pd ? pdh : na, "PDH (Buy-Side Liquidity)", color=color.new(#B33939, 15), linewidth=2, style=plot.style_linebr)
+plot(show_pd ? pdl : na, "PDL (Sell-Side Liquidity)", color=color.new(#2E7D6B, 15), linewidth=2, style=plot.style_linebr)
+plot(show_eq ? pdeq : na, "EQ (50% Balance)", color=color.new(#A8791A, 20), linewidth=1, style=plot.style_circles)
+
+var label lbl_pdh = na
+var label lbl_pdl = na
+var label lbl_eq  = na
+
+if barstate.islast
+    if show_pd and not na(pdh)
+        label.delete(lbl_pdh)
+        label.delete(lbl_pdl)
+        lbl_pdh := label.new(bar_index + 3, pdh, "PDH · BSL (" + str.tostring(pdh, format.mintick) + ")", style=label.style_label_left, color=color.new(#B33939, 15), textcolor=color.white, size=size.small)
+        lbl_pdl := label.new(bar_index + 3, pdl, "PDL · SSL (" + str.tostring(pdl, format.mintick) + ")", style=label.style_label_left, color=color.new(#2E7D6B, 15), textcolor=color.white, size=size.small)
+    if show_eq and not na(pdeq)
+        label.delete(lbl_eq)
+        lbl_eq := label.new(bar_index + 3, pdeq, "EQ 50% (" + str.tostring(pdeq, format.mintick) + ")", style=label.style_label_left, color=color.new(#A8791A, 15), textcolor=color.white, size=size.small)
+
+// ============================================================================
+// 3. NY AM OPEN (09:30–11:00 EST) & ASIA OPEN (18:00–22:00 EST) SESSIONS
+// ============================================================================
+in_ny   = not na(time(timeframe.period, ny_sess, tz))
+in_asia = not na(time(timeframe.period, asia_sess, tz))
+
+var float ny_hi = na
+var float ny_lo = na
+var int   ny_start = na
+var box   ny_box = na
+
+if in_ny and not in_ny[1]
+    ny_hi    := high
+    ny_lo    := low
+    ny_start := bar_index
+    if show_ny
+        ny_box := box.new(ny_start, ny_hi, bar_index, ny_lo, border_color=color.new(#A8791A, 35), bgcolor=color.new(#A8791A, 90), text="NY AM OPEN", text_color=color.new(#A8791A, 20), text_size=size.tiny)
+else if in_ny
+    ny_hi := math.max(nz(ny_hi, high), high)
+    ny_lo := math.min(nz(ny_lo, low), low)
+    if show_ny and not na(ny_box)
+        box.set_top(ny_box, ny_hi)
+        box.set_bottom(ny_box, ny_lo)
+        box.set_right(ny_box, bar_index)
+
+var float asia_hi = na
+var float asia_lo = na
+var int   asia_start = na
+var box   asia_box = na
+
+if in_asia and not in_asia[1]
+    asia_hi    := high
+    asia_lo    := low
+    asia_start := bar_index
+    if show_asia
+        asia_box := box.new(asia_start, asia_hi, bar_index, asia_lo, border_color=color.new(#2E7D6B, 40), bgcolor=color.new(#2E7D6B, 92), text="ASIA OPEN", text_color=color.new(#2E7D6B, 20), text_size=size.tiny)
+else if in_asia
+    asia_hi := math.max(nz(asia_hi, high), high)
+    asia_lo := math.min(nz(asia_lo, low), low)
+    if show_asia and not na(asia_box)
+        box.set_top(asia_box, asia_hi)
+        box.set_bottom(asia_box, asia_lo)
+        box.set_right(asia_box, bar_index)
+
+// ============================================================================
+// 4. FAIR VALUE GAPS (FVG) & INVERTED FAIR VALUE GAPS (iFVG)
+// ============================================================================
+min_gap = min_fvg_t * syminfo.mintick
+bull_fvg = low > high[2] and (low - high[2]) >= min_gap and close[1] > open[1]
+bear_fvg = high < low[2] and (low[2] - high) >= min_gap and close[1] < open[1]
+
+var float last_bull_fvg_top = na
+var float last_bull_fvg_bot = na
+var int   last_bull_fvg_bar = na
+var bool  last_bull_inverted = false
+
+var float last_bear_fvg_top = na
+var float last_bear_fvg_bot = na
+var int   last_bear_fvg_bar = na
+var bool  last_bear_inverted = false
+
+if bull_fvg
+    last_bull_fvg_top  := low
+    last_bull_fvg_bot  := high[2]
+    last_bull_fvg_bar  := bar_index - 1
+    last_bull_inverted := false
+    if show_fvg
+        box.new(bar_index - 2, low, bar_index + fvg_ext, high[2], border_color=color.new(#2E7D6B, 45), bgcolor=color.new(#2E7D6B, 85), text="FVG (+)", text_color=color.new(#2E7D6B, 15), text_size=size.tiny)
+
+if bear_fvg
+    last_bear_fvg_top  := low[2]
+    last_bear_fvg_bot  := high
+    last_bear_fvg_bar  := bar_index - 1
+    last_bear_inverted := false
+    if show_fvg
+        box.new(bar_index - 2, low[2], bar_index + fvg_ext, high, border_color=color.new(#B33939, 45), bgcolor=color.new(#B33939, 85), text="FVG (-)", text_color=color.new(#B33939, 15), text_size=size.tiny)
+
+// Detect iFVG (Inversion of recent opposing FVG within 25 bars)
+bull_ifvg_trigger = not na(last_bear_fvg_top) and not last_bear_inverted and (bar_index - last_bear_fvg_bar <= 25) and close > last_bear_fvg_top and close[1] <= last_bear_fvg_top
+bear_ifvg_trigger = not na(last_bull_fvg_bot) and not last_bull_inverted and (bar_index - last_bull_fvg_bar <= 25) and close < last_bull_fvg_bot and close[1] >= last_bull_fvg_bot
+
+if bull_ifvg_trigger
+    last_bear_inverted := true
+    if show_ifvg
+        box.new(bar_index, last_bear_fvg_top, bar_index + fvg_ext, last_bear_fvg_bot, border_color=color.new(#8E6CE6, 20), bgcolor=col_ifvg, text="iFVG BULL RETEST", text_color=color.white, text_size=size.tiny)
+
+if bear_ifvg_trigger
+    last_bull_inverted := true
+    if show_ifvg
+        box.new(bar_index, last_bull_fvg_top, bar_index + fvg_ext, last_bull_fvg_bot, border_color=color.new(#8E6CE6, 20), bgcolor=col_ifvg, text="iFVG BEAR RETEST", text_color=color.white, text_size=size.tiny)
+
+// ============================================================================
+// 5. LIQUIDITY SWEEP + CISD (CHANGE IN STATE OF DELIVERY) 2ND ENTRY ENGINE
+// ============================================================================
+prev_swing_hi = ta.highest(high, swp_len)[1]
+prev_swing_lo = ta.lowest(low, swp_len)[1]
+
+// Sweep condition: recent wick probed below SSL or above BSL within last 4 bars
+recent_ssl_sweep = ta.lowest(low, 4) < ta.lowest(low, swp_len)[4] or (not na(pdl) and low < pdl and close > pdl)
+recent_bsl_sweep = ta.highest(high, 4) > ta.highest(high, swp_len)[4] or (not na(pdh) and high > pdh and close < pdh)
+
+// CISD + iFVG Second Entry Confirmation
+cisd_long  = show_cisd and bull_ifvg_trigger and (recent_ssl_sweep or low[1] < prev_swing_lo)
+cisd_short = show_cisd and bear_ifvg_trigger and (recent_bsl_sweep or high[1] > prev_swing_hi)
+
+if cisd_long
+    stop_px = math.min(low, math.min(low[1], low[2])) - (syminfo.mintick * 4)
+    risk_pt = math.max(close - stop_px, syminfo.mintick * 10)
+    tp_2r   = close + (risk_pt * 2.0)
+    tp_3r   = close + (risk_pt * 3.0)
+    label.new(bar_index, low, "2ND ENTRY LONG\nCISD + iFVG", style=label.style_label_up, color=col_bull, textcolor=color.white, size=size.small)
+    if show_rr
+        line.new(bar_index, stop_px, bar_index + 10, stop_px, color=col_bear, width=2, style=line.style_solid)
+        line.new(bar_index, tp_2r, bar_index + 10, tp_2r, color=col_olive, width=1, style=line.style_dashed)
+        line.new(bar_index, tp_3r, bar_index + 10, tp_3r, color=col_bull, width=2, style=line.style_solid)
+        label.new(bar_index + 10, tp_2r, "2R (" + str.tostring(tp_2r, format.mintick) + ")", style=label.style_label_left, color=col_olive, textcolor=color.white, size=size.tiny)
+        label.new(bar_index + 10, tp_3r, "3R (" + str.tostring(tp_3r, format.mintick) + ")", style=label.style_label_left, color=col_bull, textcolor=color.white, size=size.tiny)
+
+if cisd_short
+    stop_px = math.max(high, math.max(high[1], high[2])) + (syminfo.mintick * 4)
+    risk_pt = math.max(stop_px - close, syminfo.mintick * 10)
+    tp_2r   = close - (risk_pt * 2.0)
+    tp_3r   = close - (risk_pt * 3.0)
+    label.new(bar_index, high, "2ND ENTRY SHORT\nCISD + iFVG", style=label.style_label_down, color=col_bear, textcolor=color.white, size=size.small)
+    if show_rr
+        line.new(bar_index, stop_px, bar_index + 10, stop_px, color=col_bear, width=2, style=line.style_solid)
+        line.new(bar_index, tp_2r, bar_index + 10, tp_2r, color=col_olive, width=1, style=line.style_dashed)
+        line.new(bar_index, tp_3r, bar_index + 10, tp_3r, color=col_bull, width=2, style=line.style_solid)
+        label.new(bar_index + 10, tp_2r, "2R (" + str.tostring(tp_2r, format.mintick) + ")", style=label.style_label_left, color=col_olive, textcolor=color.white, size=size.tiny)
+        label.new(bar_index + 10, tp_3r, "3R (" + str.tostring(tp_3r, format.mintick) + ")", style=label.style_label_left, color=col_bull, textcolor=color.white, size=size.tiny)
+
+// ============================================================================
+// 6. ALERTS FOR AUTOMATED DESK NOTIFICATIONS
+// ============================================================================
+alertcondition(bull_ifvg_trigger, title="CB Bullish iFVG Inversion", message="CB Trades: Bullish iFVG Inversion detected on {{ticker}} ({{interval}}). Wait for retest.")
+alertcondition(bear_ifvg_trigger, title="CB Bearish iFVG Inversion", message="CB Trades: Bearish iFVG Inversion detected on {{ticker}} ({{interval}}). Wait for retest.")
+alertcondition(cisd_long, title="CB 2ND ENTRY LONG (CISD + iFVG)", message="CB Trades: 2ND ENTRY LONG confirmed after liquidity sweep on {{ticker}} ({{interval}}) @ {{close}}")
+alertcondition(cisd_short, title="CB 2ND ENTRY SHORT (CISD + iFVG)", message="CB Trades: 2ND ENTRY SHORT confirmed after liquidity sweep on {{ticker}} ({{interval}}) @ {{close}}")
